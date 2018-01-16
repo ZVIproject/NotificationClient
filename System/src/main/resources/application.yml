@@ -1,0 +1,21 @@
+
+email:
+  gmail:
+    host: smtp.gmail.com
+    port: 587
+    username: username
+    password: password
+    properties:
+      smtpAuth: true
+      tlsEnable: true
+  amazon:
+    host: email-smtp.us-west-2.amazonaws.com
+    port: 587
+    username: username
+    password: password
+    properties:
+      transportProtocol: smtp
+      smtpPort: 25
+      smtpAuth: true
+      tlsEnable: true
+      tlsRequired: true
