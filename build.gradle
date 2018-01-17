@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'com.notification.client.Main'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	runtime('mysql:mysql-connector-java:5.1.43')
+}
