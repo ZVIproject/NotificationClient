@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.notification.client.common.dao.UserDAOService;
+import com.notification.client.common.entities.User;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +25,8 @@ public class LoginController {
 	
 	@FXML private TextField loginField;	
 	@FXML private PasswordField passwordField;
+	
+	private UserDAOService userDAOService = new UserDAOService();
 	
 	public void showDialog() {
 		Stage stage = new Stage();
@@ -49,12 +54,26 @@ public class LoginController {
 			passwordField.setText("");
 			return;
 		}
+		
+//		User user = userDAOService.getUser(login, password);
+//		MainController.setUser(user);
+		
+		openMainWindow();
 	}
 	
 	public void register() {
 		RegisterController registerController = new RegisterController();
 		registerController.showDialog();
-		
+		closeCurrentWindow();
+	}
+	
+	private void openMainWindow() {
+		MainController mainController = new MainController();
+		mainController.showDialog();
+		closeCurrentWindow();
+	}
+	
+	private void closeCurrentWindow() {
 		Stage stage = (Stage) registerButton.getScene().getWindow();
 		stage.close();
 	}

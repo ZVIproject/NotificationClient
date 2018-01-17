@@ -74,16 +74,32 @@ public class RegisterController {
 		user.setPassword(password);
 		user.setEmail(email);
 		
-		userDAOService.create(user);		
+		Integer id = userDAOService.create(user);
+		
+		if(id >= 0) {
+			user.setId(id);
+			MainController.setUser(user);
+			openMainWindow();
+		} else {
+			return;
+		}
 	}
 	
 	public void cancel() {
 		LoginController loginController = new LoginController();
-		loginController.showDialog();
-		
+		loginController.showDialog();		
+		closeCurrentWindow();
+	}
+	
+	private void openMainWindow() {
+		MainController mainController = new MainController();
+		mainController.showDialog();		
+		closeCurrentWindow();
+	}
+	
+	private void closeCurrentWindow() {
 		Stage stage = (Stage) cancelButton.getScene().getWindow();
 		stage.close();
 	}
-	
 	
 }

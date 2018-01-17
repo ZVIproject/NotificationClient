@@ -2,4 +2,7 @@
 bin/
 build/
 gradle/
+.gradle/
 build.fxbuild
+.classpath
+.project
