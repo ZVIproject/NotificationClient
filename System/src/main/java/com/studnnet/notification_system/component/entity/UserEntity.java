@@ -1,8 +1,11 @@
 package com.studnnet.notification_system.component.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -30,6 +33,14 @@ public class UserEntity {
     @Column(name = "position")
     private String position;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Message> messages;
+    @Column(name = "create_date", insertable = false, updatable = false)
+    @CreationTimestamp
+    private Date created;
+
+    @Column(name = "modified_date")
+    @UpdateTimestamp
+    private Date modified;
+
+    @OneToMany(mappedBy = "userEntity")
+    private Set<MessageEntity> messages;
 }

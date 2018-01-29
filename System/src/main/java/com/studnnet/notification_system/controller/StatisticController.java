@@ -20,4 +20,6 @@ public class StatisticController {
     public List<StatisticEntity> getStatistic() {
         return statisticRepository.findAll();
     }
+
+
 }

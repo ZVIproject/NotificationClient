@@ -9,12 +9,10 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("email")
 @Getter
 @Setter
-public class EmaiProperties {
+public class EmailProperties {
     private final ConnectGmail gmail = new ConnectGmail();
     private final ConnectAmazon amazon = new ConnectAmazon();
     private Boolean debug;
-
-
 
     @Getter
     @Setter

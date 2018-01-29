@@ -3,8 +3,8 @@ email:
   gmail:
     host: smtp.gmail.com
     port: 587
-    username: username
-    password: password
+    username: studnetns@gmail.com
+    password: 20181501
     properties:
       smtpAuth: true
       tlsEnable: true

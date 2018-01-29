@@ -1,13 +1,15 @@
 package com.studnnet.notification_system.interfacee;
 
-import com.studnnet.notification_system.component.entity.MailEntity;
+import com.studnnet.notification_system.component.entity.SendMailEntity;
 import org.springframework.mail.SimpleMailMessage;
 
 public interface MailSendService {
 
-    SimpleMailMessage sendSimpleMessage(MailEntity mailEntity);
+    void doSend(SendMailEntity sendMailEntity);
 
-    SimpleMailMessage sendTemplateMessage(MailEntity mailEntity);
+    SimpleMailMessage sendSimpleMessage(SendMailEntity sendMailEntity);
+
+    SimpleMailMessage sendTemplateMessage(SendMailEntity sendMailEntity);
 
     String name();
 }

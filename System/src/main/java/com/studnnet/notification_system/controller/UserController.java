@@ -36,6 +36,6 @@ public class UserController {
 
     @GetMapping("/authorization")
     public boolean checkUser(@RequestBody UserEntity userEntity){
-        return userRepository.existsByUserNameAndPassword(userEntity.getUsername(), userEntity.getPassword());
+        return userRepository.existsByUsernameAndPassword(userEntity.getUsername(), userEntity.getPassword());
     }
 }

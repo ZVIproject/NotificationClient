@@ -1,8 +1,9 @@
 package com.studnnet.notification_system.service;
 
-import com.studnnet.notification_system.utils.abstracts.AbstractMailSendService;
-import com.studnnet.notification_system.configuration.EmaiProperties;
+import com.studnnet.notification_system.component.entity.SendMailEntity;
+import com.studnnet.notification_system.configuration.EmailProperties;
 import com.studnnet.notification_system.utils.Const;
+import com.studnnet.notification_system.utils.abstracts.AbstractMailSendService;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,10 @@ public class GmailSendServiceImpl extends AbstractMailSendService {
 
     @PostConstruct
     public void postConstruct() {
-        config(emaiProperties.getGmail());
+        config(emailProperties.getGmail());
     }
 
-    private void config(EmaiProperties.ConnectGmail connect) {
+    private void config(EmailProperties.ConnectGmail connect) {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         mailSender.setHost(connect.getHost());

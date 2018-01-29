@@ -5,6 +5,7 @@ import com.studnnet.notification_system.component.repositories.MessageRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,11 @@ public class MessageController {
 
     @GetMapping("/")
     public List<MessageEntity> getMessages() {
+        return messageRepository.findAll();
+    }
+
+    @GetMapping("/{userId}")
+    public List<MessageEntity> getMessages(@PathParam("userId")Integer userId) {
         return messageRepository.findAll();
     }
 
@@ -33,5 +39,12 @@ public class MessageController {
     public MessageEntity updateMessage(@RequestBody MessageEntity userEntity) {
         return messageRepository.save(userEntity);
     }
+
+    @PutMapping("/all")
+    public List<MessageEntity> createMessages(@RequestBody List<MessageEntity> messageEntities){
+        return messageRepository.save(messageEntities);
+    }
+
+
 }
 
