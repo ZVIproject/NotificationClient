@@ -4,10 +4,16 @@ apply plugin: 'application'
 
 mainClassName = 'com.notification.client.Main'
 
+compileJava {
+    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
 	runtime('mysql:mysql-connector-java:5.1.43')
+	compile('org.apache.poi:poi-ooxml:3.17')
 }

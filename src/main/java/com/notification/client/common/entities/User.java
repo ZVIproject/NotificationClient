@@ -2,6 +2,9 @@ package com.notification.client.common.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.Cell;
 
 public class User {
 
@@ -81,18 +84,42 @@ public class User {
 	}
 	
 	/**
-	 * Filing and return new object of User.
-	 * 
-	 * @param resultSet
-	 * 
+	 * Filing and return new object of User. 
+	 * @param resultSet 
 	 * @return new User object
-	 * 
 	 * @throws SQLException
 	 */
 	public static User getUser(ResultSet resultSet) throws SQLException {
-		return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"),
-				resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("patronymic"),
-				resultSet.getString("email"));
+		return new User(
+				resultSet.getInt("id"), 
+				resultSet.getString("username"), 
+				resultSet.getString("password"),
+				resultSet.getString("first_name"), 
+				resultSet.getString("last_name"), 
+				resultSet.getString("patronymic"),
+				resultSet.getString("email")
+			);
+	}
+	
+	/**
+	 * Filling User object using data from list of cells, and return it.
+	 * @param cells - list of cells
+	 * @return User object
+	 */
+	public static User getUser(List<Cell> cells) {
+		if(cells == null || cells.isEmpty()) {
+			return null;
+		}
+		
+		User user = new User();
+		user.setUsername(cells.get(0).getStringCellValue());
+		user.setPassword(cells.get(1).getStringCellValue());
+		user.setFirstName(cells.get(2).getStringCellValue());
+		user.setLastName(cells.get(3).getStringCellValue());
+		user.setPatronymic(cells.get(4).getStringCellValue());
+		user.setEmail(cells.get(5).getStringCellValue());
+		
+		return user;
 	}
 	
 }

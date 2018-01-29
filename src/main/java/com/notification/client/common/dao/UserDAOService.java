@@ -12,7 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.notification.client.common.entities.User;
+import com.notification.client.common.interfaces.ILoggerService;
 import com.notification.client.common.interfaces.IUserDAOService;
+import com.notification.client.services.LoggerService;
 
 public class UserDAOService implements IUserDAOService {
 
@@ -34,12 +36,19 @@ public class UserDAOService implements IUserDAOService {
 	
 	private static Logger logger = Logger.getLogger(UserDAOService.class.getName());
 	
+	private ILoggerService loggerService;
+	
+	
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch(ClassNotFoundException e) {
 			logger.log(Level.SEVERE, "Exception during driver loading\n" + e.getMessage() + "\n" + e.getCause());
 		}
+	}
+	
+	public UserDAOService() {
+		loggerService = new LoggerService();
 	}
 	
 	private Connection getConnection() throws SQLException {
@@ -65,7 +74,7 @@ public class UserDAOService implements IUserDAOService {
 			return usersList;			
 			
 		} catch(SQLException e) {
-			logger.log(Level.SEVERE, "Exception during selection of all users\n" + e.getMessage() + "\n" + e.getCause());
+			loggerService.logError(e, "Exception during selection of all users");
 			throw new RuntimeException(e);
 		}
 	}
@@ -87,7 +96,7 @@ public class UserDAOService implements IUserDAOService {
 			return user;
 			
 		} catch(SQLException e) {
-			logger.log(Level.SEVERE, "Exception during user selection\n" + e.getMessage() + "\n" + e.getCause());
+			loggerService.logError(e, "Exception during user selection");
 			throw new RuntimeException(e);
 		}
 	}
@@ -109,7 +118,7 @@ public class UserDAOService implements IUserDAOService {
 			return user;
 			
 		} catch(SQLException e) {
-			logger.log(Level.SEVERE, "Exception during user selection\n" + e.getMessage() + "\n" + e.getCause());
+			loggerService.logError(e, "Exception during user selection");
 			throw new RuntimeException(e);
 		}
 	}
@@ -136,7 +145,7 @@ public class UserDAOService implements IUserDAOService {
 			return generatedKeys.getInt(1);
 			
 		} catch(SQLException e) {
-			logger.log(Level.SEVERE, "Exception during inserting\n" + e.getMessage() + "\n" + e.getCause());
+			loggerService.logError(e, "Exception during inserting");
 			throw new RuntimeException(e);
 		}
 	}
@@ -155,7 +164,7 @@ public class UserDAOService implements IUserDAOService {
 			return true;
 			
 		} catch(SQLException e) {
-			logger.log(Level.SEVERE, "Exception during deleting\n" + e.getMessage() + "\n" + e.getCause());
+			loggerService.logError(e, "Exception during deleting");
 			throw new RuntimeException(e);
 		}
 	}	
