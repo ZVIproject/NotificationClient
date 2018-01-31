@@ -1,8 +1,8 @@
-package com.notification.client.common.interfaces;
+package com.notification.client.interfaces;
 
 import java.util.List;
 
-import com.notification.client.common.entities.User;
+import com.notification.client.components.entities.User;
 
 public interface IUserDAOService {
 
@@ -49,5 +49,4 @@ public interface IUserDAOService {
 	 * @return 'true' if operation was succeed, 'false' otherwise
 	 */
 	boolean delete(Integer id);
-	
 }

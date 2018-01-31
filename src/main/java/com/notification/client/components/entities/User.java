@@ -1,8 +1,10 @@
-package com.notification.client.common.entities;
+package com.notification.client.components.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Cell;
 
@@ -13,9 +15,10 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String patronymic;
-	private String email;
-	
+	private String position;
+	private Date created;
+	private Date modified;
+	private Set<Integer> messages;
 	
 	public User() {
 		// default constructor
@@ -26,17 +29,21 @@ public class User {
 			String username, 
 			String password, 
 			String firstName, 
-			String lastName, 
-			String patronymic, 
-			String email
+			String lastName,
+			String position,
+			Date created,
+			Date modified,
+			Set<Integer> messages
 		) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.patronymic = patronymic;
-		this.email = email;
+		this.position = position;
+		this.created = created;
+		this.modified = modified;
+		this.messages = messages;
 	}
 	
 	
@@ -70,19 +77,39 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getPatronymic() {
-		return patronymic;
-	}
-	public void setPatronymic(String patronymic) {
-		this.patronymic = patronymic;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getModified() {
+		return modified;
+	}
+
+	public void setModified(Date modified) {
+		this.modified = modified;
+	}
+
+	public Set<Integer> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Set<Integer> messages) {
+		this.messages = messages;
+	}
+
 	/**
 	 * Filing and return new object of User. 
 	 * @param resultSet 
@@ -90,15 +117,16 @@ public class User {
 	 * @throws SQLException
 	 */
 	public static User getUser(ResultSet resultSet) throws SQLException {
-		return new User(
-				resultSet.getInt("id"), 
-				resultSet.getString("username"), 
-				resultSet.getString("password"),
-				resultSet.getString("first_name"), 
-				resultSet.getString("last_name"), 
-				resultSet.getString("patronymic"),
-				resultSet.getString("email")
-			);
+		User user = new User();
+		user.setId(resultSet.getInt("id"));
+		user.setUsername(resultSet.getString("username"));
+		user.setPassword(resultSet.getString("password"));
+		user.setFirstName(resultSet.getString("first_name"));
+		user.setLastName(resultSet.getString("last_name"));
+		user.setPosition(resultSet.getString("position"));
+		user.setCreated(resultSet.getDate("created"));
+		user.setModified(resultSet.getDate("modified"));
+		return user;
 	}
 	
 	/**
@@ -116,8 +144,9 @@ public class User {
 		user.setPassword(cells.get(1).getStringCellValue());
 		user.setFirstName(cells.get(2).getStringCellValue());
 		user.setLastName(cells.get(3).getStringCellValue());
-		user.setPatronymic(cells.get(4).getStringCellValue());
-		user.setEmail(cells.get(5).getStringCellValue());
+		user.setPosition(cells.get(4).getStringCellValue());
+		user.setCreated(cells.get(5).getDateCellValue());
+		user.setModified(cells.get(6).getDateCellValue());
 		
 		return user;
 	}

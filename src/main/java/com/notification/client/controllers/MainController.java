@@ -5,10 +5,10 @@ import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Cell;
 
-import com.notification.client.common.entities.User;
-import com.notification.client.common.interfaces.ILoggerService;
-import com.notification.client.common.interfaces.IUserDAOService;
-import com.notification.client.common.interfaces.IXLSFileParser;
+import com.notification.client.components.entities.User;
+import com.notification.client.interfaces.ILoggerService;
+import com.notification.client.interfaces.IUserDAOService;
+import com.notification.client.interfaces.IXLSFileParser;
 import com.notification.client.services.LoggerService;
 import com.notification.client.services.XLSFileParser;
 
@@ -48,7 +48,7 @@ public class MainController {
 			pane = (BorderPane)FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/MainWindow.fxml"));
 			Scene scene = new Scene(pane);
 			stage.setScene(scene);
-			stage.setTitle("Головна");
+			stage.setTitle("Головне вікно");
 			stage.setResizable(false);
 			stage.show();
 			this.stage = stage;
@@ -62,9 +62,16 @@ public class MainController {
 	public void readFromFile() {
 		List<List<Cell>> rows = parser.readFile(stage);
 		for(List<Cell> cells: rows) {
-			User user = User.getUser(cells);			
-			int id = userDAOService.create(user);
+			User user = User.getUser(cells);
+			
+			try {
+				userDAOService.create(user);
+			} catch(NullPointerException e) {
+				loggerService.logError(e, "NullPointerException in readFromFile method");
+				throw new RuntimeException(e);
+			}
 		}
+		
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.notification.client.common.interfaces;
+package com.notification.client.interfaces;
 
 public interface ILoggerService {
 

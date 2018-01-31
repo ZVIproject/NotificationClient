@@ -1,10 +1,11 @@
 package com.notification.client.controllers;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
-import com.notification.client.common.dao.UserDAOService;
-import com.notification.client.common.entities.User;
+import com.notification.client.dao.UserDAOService;
+import com.notification.client.components.entities.User;
+import com.notification.client.interfaces.ILoggerService;
+import com.notification.client.services.LoggerService;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,18 +17,21 @@ import javafx.stage.Stage;
 
 public class RegisterController {
 	
-	private static final Logger logger = Logger.getLogger(RegisterController.class.getName());
+	private ILoggerService loggerService;
 	
 	@FXML private Button cancelButton;
 	
 	@FXML private TextField firstNameField;
 	@FXML private TextField lastNameField;
-	@FXML private TextField patronymicField;
 	@FXML private TextField loginField;
 	@FXML private TextField passwordField;
-	@FXML private TextField emailField;
 
 	private UserDAOService userDAOService = new UserDAOService(); 
+	
+	
+	public RegisterController() {
+		loggerService = new LoggerService();
+	}
 	
 	public void showDialog() {
 		Stage stage = new Stage();
@@ -42,7 +46,7 @@ public class RegisterController {
 			stage.show();
 			
 		} catch(IOException | NullPointerException e) {
-			logger.info(e.getMessage() + ": " + e.getCause());
+			loggerService.logError(e, "Exception during register form opening");
 			throw new RuntimeException(e);
 		}
 	}
@@ -50,29 +54,22 @@ public class RegisterController {
 	public void register() {
 		String firstName = firstNameField.getText();
 		String lastName = lastNameField.getText();
-		String patronymic = patronymicField.getText();
 		String username = loginField.getText();
 		String password = passwordField.getText();
-		String email = emailField.getText();
 		
-		if(firstName.equals("") || lastName.equals("") || patronymic.equals("") ||
-				username.equals("") || password.equals("") || email.equals("")) {
+		if(firstName.equals("") || lastName.equals("") || username.equals("") || password.equals("")) {
 			firstNameField.setText("");
 			lastNameField.setText("");
-			patronymicField.setText("");
 			loginField.setText("");
 			passwordField.setText("");
-			emailField.setText("");
 			return;			
 		}
 		
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
-		user.setPatronymic(patronymic);
 		user.setUsername(username);
 		user.setPassword(password);
-		user.setEmail(email);
 		
 		Integer id = userDAOService.create(user);
 		

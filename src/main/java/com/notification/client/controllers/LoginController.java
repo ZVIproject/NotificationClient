@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.notification.client.common.dao.UserDAOService;
-import com.notification.client.common.entities.User;
+import com.notification.client.dao.UserDAOService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

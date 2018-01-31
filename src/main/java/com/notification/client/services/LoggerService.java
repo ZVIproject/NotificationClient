@@ -3,7 +3,7 @@ package com.notification.client.services;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.notification.client.common.interfaces.ILoggerService;
+import com.notification.client.interfaces.ILoggerService;
 
 public class LoggerService implements ILoggerService {
 

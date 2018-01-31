@@ -1,4 +1,4 @@
-package com.notification.client.common.dao;
+package com.notification.client.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,12 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.notification.client.common.entities.User;
-import com.notification.client.common.interfaces.ILoggerService;
-import com.notification.client.common.interfaces.IUserDAOService;
+import com.notification.client.components.entities.User;
+import com.notification.client.interfaces.ILoggerService;
+import com.notification.client.interfaces.IUserDAOService;
 import com.notification.client.services.LoggerService;
 
 public class UserDAOService implements IUserDAOService {
@@ -30,28 +28,19 @@ public class UserDAOService implements IUserDAOService {
 			"SELECT id, username, password, first_name, last_name, patronymic, email FROM users " + 
 			"WHERE username=? AND password=?";
 	private static final String QUERY_INSERT = 
-			"INSERT INTO users(username, password, first_name, last_name, patronymic, email) VALUES " +
-			"(?, ?, ?, ?, ?, ?)";
+			"INSERT INTO notification_system.users(username, password, first_name, last_name, patronymic, email) "
+			+ "VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String QUERY_DELETE = "DELETE FROM users WHERE id=?";
-	
-	private static Logger logger = Logger.getLogger(UserDAOService.class.getName());
 	
 	private ILoggerService loggerService;
 	
-	
-	static {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch(ClassNotFoundException e) {
-			logger.log(Level.SEVERE, "Exception during driver loading\n" + e.getMessage() + "\n" + e.getCause());
-		}
-	}
 	
 	public UserDAOService() {
 		loggerService = new LoggerService();
 	}
 	
-	private Connection getConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
+		loggerService.logInfo("Connecting...");
 		return DriverManager.getConnection(URL, USERNAME, PASSWORD);
 	}
 
@@ -135,8 +124,8 @@ public class UserDAOService implements IUserDAOService {
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getFirstName());
 			statement.setString(4, user.getLastName());
-			statement.setString(5, user.getPatronymic());
-			statement.setString(6, user.getEmail());
+//			statement.setString(5, user.getPatronymic());
+//			statement.setString(6, user.getEmail());
 			statement.execute();
 			
 			ResultSet generatedKeys = statement.getGeneratedKeys();			

@@ -16,8 +16,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.notification.client.common.interfaces.ILoggerService;
-import com.notification.client.common.interfaces.IXLSFileParser;
+import com.notification.client.interfaces.ILoggerService;
+import com.notification.client.interfaces.IXLSFileParser;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
