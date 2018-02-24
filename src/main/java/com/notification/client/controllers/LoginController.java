@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.notification.client.components.entities.User;
+import com.notification.client.rest.UserDAOService;
+import com.notification.client.services.LoggerServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +19,13 @@ import javafx.stage.Stage;
 
 public class LoginController {
 	
-	private static final Logger logger = Logger.getLogger(LoginController.class.getName());
+	private static final LoggerServiceImpl logger = new LoggerServiceImpl();
 	
 	@FXML private Button registerButton;
-	
 	@FXML private TextField loginField;	
 	@FXML private PasswordField passwordField;
+
+	private UserDAOService userDAOService = new UserDAOService();
 	
 	public void showDialog() {
 		Stage stage = new Stage();
@@ -35,7 +39,7 @@ public class LoginController {
 			stage.show();
 			
 		} catch(IOException | NullPointerException e) {
-			logger.log(Level.SEVERE, "Exception during form loading\n" + e.getMessage() + "\n" + e.getCause());
+			logger.logError(e,  "Exception during form loading");
 			throw new RuntimeException(e);
 		}
 	}
@@ -49,9 +53,18 @@ public class LoginController {
 			passwordField.setText("");
 			return;
 		}
-		
-//		User user = userDAOService.getUser(login, password);
-//		MainController.setUser(user);
+
+		User user = new User();
+		user.setUsername(login);
+		user.setPassword(password);
+
+        if (!userDAOService.checkUser(user)) {
+            loginField.setText("");
+            passwordField.setText("");
+            AlertController alertController = new AlertController();
+            alertController.showDialog("Користувача із таким ім'ям та паролем не знайдено");
+            return;
+        }
 		
 		openMainWindow();
 	}
