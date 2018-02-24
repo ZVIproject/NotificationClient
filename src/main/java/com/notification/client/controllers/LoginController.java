@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.notification.client.dao.UserDAOService;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,8 +22,6 @@ public class LoginController {
 	
 	@FXML private TextField loginField;	
 	@FXML private PasswordField passwordField;
-	
-	private UserDAOService userDAOService = new UserDAOService();
 	
 	public void showDialog() {
 		Stage stage = new Stage();

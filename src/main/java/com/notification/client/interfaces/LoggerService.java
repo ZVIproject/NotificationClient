@@ -1,6 +1,6 @@
 package com.notification.client.interfaces;
 
-public interface ILoggerService {
+public interface LoggerService {
 
 	/**
 	 * Log of additional info.

@@ -3,11 +3,11 @@ package com.notification.client.services;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.notification.client.interfaces.ILoggerService;
+import com.notification.client.interfaces.LoggerService;
 
-public class LoggerService implements ILoggerService {
+public class LoggerServiceImpl implements LoggerService {
 
-	private static final Logger logger = Logger.getLogger(LoggerService.class.getName());
+	private static final Logger logger = Logger.getLogger(LoggerServiceImpl.class.getName());
 	
 
 	/**

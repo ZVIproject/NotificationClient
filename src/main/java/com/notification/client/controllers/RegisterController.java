@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.notification.client.dao.UserDAOService;
 import com.notification.client.components.entities.User;
-import com.notification.client.interfaces.ILoggerService;
-import com.notification.client.services.LoggerService;
+import com.notification.client.interfaces.LoggerService;
+import com.notification.client.services.LoggerServiceImpl;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class RegisterController {
 	
-	private ILoggerService loggerService;
+	private LoggerService loggerService;
 	
 	@FXML private Button cancelButton;
 	
@@ -30,7 +30,7 @@ public class RegisterController {
 	
 	
 	public RegisterController() {
-		loggerService = new LoggerService();
+		loggerService = new LoggerServiceImpl();
 	}
 	
 	public void showDialog() {

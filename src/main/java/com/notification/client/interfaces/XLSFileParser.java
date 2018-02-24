@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Cell;
 
 import javafx.stage.Stage;
 
-public interface IXLSFileParser {
+public interface XLSFileParser {
 
 	/**
 	 * Reads info from the chosen .xls (or .xlsx) file.

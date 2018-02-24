@@ -16,25 +16,25 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.notification.client.interfaces.ILoggerService;
-import com.notification.client.interfaces.IXLSFileParser;
+import com.notification.client.interfaces.LoggerService;
+import com.notification.client.interfaces.XLSFileParser;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class XLSFileParser implements IXLSFileParser {
+public class XLSFileParserImpl implements XLSFileParser {
 	
 	private FileChooser fileChooser = new FileChooser();
 	
-	private ILoggerService loggerService;
+	private LoggerService loggerService;
 	
 	
-	public XLSFileParser() {
-		loggerService = new LoggerService();
+	public XLSFileParserImpl() {
+		loggerService = new LoggerServiceImpl();
 	}
 
 	/**
-	 * @see com.notification.client.common.interfaces.IXLSFileParser#readFile(Stage)
+	 * @see XLSFileParser#readFile(Stage)
 	 */
 	@Override
 	public List<List<Cell>> readFile(Stage stage) {
@@ -77,7 +77,7 @@ public class XLSFileParser implements IXLSFileParser {
 	private List<List<Cell>> getContentOfXLSFile(XSSFWorkbook workbook) {
 		List<List<Cell>> resultList = new ArrayList<>();
 		
-		for(int i=0; i<workbook.getNumberOfSheets(); i++) {
+		for(int i=1; i<workbook.getNumberOfSheets(); i++) {
 			XSSFSheet currentSheet = workbook.getSheetAt(i);
 			
 			Iterator<Row> rows = currentSheet.rowIterator();
@@ -99,7 +99,7 @@ public class XLSFileParser implements IXLSFileParser {
 	private List<List<Cell>> getContentOfXLSXFile(HSSFWorkbook workbook) {
 		List<List<Cell>> resultList = new ArrayList<>();
 		
-		for(int i=0; i<workbook.getNumberOfSheets(); i++) {
+		for(int i=1; i<workbook.getNumberOfSheets(); i++) {
 			HSSFSheet currentSheet = workbook.getSheetAt(i);
 			
 			Iterator<Row> rows = currentSheet.rowIterator();

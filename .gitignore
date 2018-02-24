@@ -7,3 +7,7 @@ build.fxbuild
 .classpath
 .project
 .settings
+.idea/
+NotificationClient.ipr
+NotificationClient.iws
+NotificationClient.iml

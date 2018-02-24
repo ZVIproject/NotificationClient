@@ -1,5 +1,7 @@
 package com.notification.client.components.entities;
 
+import com.notification.client.utils.enums.MailStatus;
+
 import java.util.Date;
 
 public class Message {

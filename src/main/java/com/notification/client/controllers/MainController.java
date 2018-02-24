@@ -6,11 +6,10 @@ import java.io.IOException;
 import org.apache.poi.ss.usermodel.Cell;
 
 import com.notification.client.components.entities.User;
-import com.notification.client.interfaces.ILoggerService;
-import com.notification.client.interfaces.IUserDAOService;
-import com.notification.client.interfaces.IXLSFileParser;
-import com.notification.client.services.LoggerService;
-import com.notification.client.services.XLSFileParser;
+import com.notification.client.interfaces.LoggerService;
+import com.notification.client.interfaces.XLSFileParser;
+import com.notification.client.services.LoggerServiceImpl;
+import com.notification.client.services.XLSFileParserImpl;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,13 +20,12 @@ public class MainController {
 	
 	private static User user;
 	
-	private ILoggerService loggerService;
-	private IUserDAOService userDAOService;	
-	private IXLSFileParser parser;
+	private LoggerService loggerService;
+	private XLSFileParser parser;
 	
 	private Stage stage;
-	
-	
+
+
 	public static void setUser(User user) {
 		MainController.user = user;
 	}
@@ -37,8 +35,8 @@ public class MainController {
 	}
 	
 	public MainController() {
-		parser = new XLSFileParser();
-		loggerService = new LoggerService();
+		parser = new XLSFileParserImpl();
+		loggerService = new LoggerServiceImpl();
 	}	
 	
 	public void showDialog() {
@@ -52,7 +50,6 @@ public class MainController {
 			stage.setResizable(false);
 			stage.show();
 			this.stage = stage;
-			
 		} catch(IOException | NullPointerException e) {
 			loggerService.logError(e, "Exception during form loading");
 			throw new RuntimeException(e);
@@ -63,15 +60,14 @@ public class MainController {
 		List<List<Cell>> rows = parser.readFile(stage);
 		for(List<Cell> cells: rows) {
 			User user = User.getUser(cells);
-			
+
 			try {
-				userDAOService.create(user);
+//				userDAOService.create(user);
 			} catch(NullPointerException e) {
 				loggerService.logError(e, "NullPointerException in readFromFile method");
 				throw new RuntimeException(e);
 			}
 		}
-		
 	}
 	
 }
