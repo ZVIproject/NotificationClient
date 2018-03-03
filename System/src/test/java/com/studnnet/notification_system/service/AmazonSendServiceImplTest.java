@@ -1,10 +1,9 @@
 package com.studnnet.notification_system.service;
 
 import com.studnnet.notification_system.MailApplication;
-import com.studnnet.notification_system.component.entity.SendMailEntity;
+import com.studnnet.notification_system.component.dto.SendMailDto;
 import com.studnnet.notification_system.utils.Const;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class AmazonSendServiceImplTest {
     @Autowired
     private MailSendServiceDispatcher dispatcher;
 
-    private SendMailEntity sendMailEntity;
+    private SendMailDto sendMailDto;
 
 
     @Before
@@ -31,20 +30,20 @@ public class AmazonSendServiceImplTest {
         final String emailText = "Hello amazon!!!";
         final String emailSubject = "test";
 
-        this.sendMailEntity = new SendMailEntity(receiversEmail, emailText, emailSubject);
+        this.sendMailDto = new SendMailDto(receiversEmail, emailText, emailSubject, 1);
     }
 
     @Test
     public void sendSimpleMessageFailedIfMessageDataIsNotEquals() throws Exception {
 
-        SimpleMailMessage testMailMessage = dispatcher.get(Const.AMAZON).sendSimpleMessage(sendMailEntity);
+        SimpleMailMessage testMailMessage = dispatcher.get(Const.AMAZON).sendSimpleMessage(sendMailDto);
 
         checkResponseMail(testMailMessage, true);
     }
 
     @Test
     public void sendTemplateMessageFailedIfMessageDataIsNotEquals() throws Exception {
-        SimpleMailMessage testMailMessage = dispatcher.get(Const.AMAZON).sendTemplateMessage(sendMailEntity);
+        SimpleMailMessage testMailMessage = dispatcher.get(Const.AMAZON).sendTemplateMessage(sendMailDto);
 
         checkResponseMail(testMailMessage, false);
 
@@ -52,11 +51,11 @@ public class AmazonSendServiceImplTest {
 
     private void checkResponseMail(SimpleMailMessage testMailMessage, boolean isNotTemplateMessage) {
         if (isNotTemplateMessage) {
-            assertEquals("Text of message should be equal", testMailMessage.getText(), sendMailEntity.getText());
+            assertEquals("Text of message should be equal", testMailMessage.getText(), sendMailDto.getText());
         }
 
-        assertEquals("Receiver's email should be equal", testMailMessage.getTo()[0], sendMailEntity.getTo());
-        assertEquals("The subject text should be equal", testMailMessage.getSubject(), sendMailEntity.getSubject());
+        assertEquals("Receiver's email should be equal", testMailMessage.getTo()[0], sendMailDto.getTo());
+        assertEquals("The subject text should be equal", testMailMessage.getSubject(), sendMailDto.getSubject());
     }
 
 }

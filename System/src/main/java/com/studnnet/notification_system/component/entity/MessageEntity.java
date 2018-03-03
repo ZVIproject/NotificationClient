@@ -26,6 +26,7 @@ public class MessageEntity {
     private Integer sendCount;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status")
     private MailStatus status = MailStatus.NEW;
 
     @Column(name = "create_date", insertable = false, updatable = false)

@@ -1,6 +1,6 @@
 package com.studnnet.notification_system.controller;
 
-import com.studnnet.notification_system.component.entity.SendMailEntity;
+import com.studnnet.notification_system.component.dto.SendMailDto;
 import com.studnnet.notification_system.service.MailSendServiceDispatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,17 +14,17 @@ public class SendController {
     protected MailSendServiceDispatcher dispatcher;
 
     @PostMapping(value = "/simple")
-    public SimpleMailMessage sendSimpleMessage(@RequestBody SendMailEntity sendMailEntity,
+    public SimpleMailMessage sendSimpleMessage(@RequestBody SendMailDto sendMailDto,
                                                @PathVariable("sending_server") String sendingServer) {
 
-        return dispatcher.get(sendingServer).sendSimpleMessage(sendMailEntity);
+        return dispatcher.get(sendingServer).sendSimpleMessage(sendMailDto);
     }
 
     @PostMapping(value = "/template")
-    public SimpleMailMessage sendTemplateMessage(@RequestBody SendMailEntity sendMailEntity,
+    public SimpleMailMessage sendTemplateMessage(@RequestBody SendMailDto sendMailDto,
                                                  @PathVariable("sending_server") String sendingServer) {
 
-        return dispatcher.get(sendingServer).sendTemplateMessage(sendMailEntity);
+        return dispatcher.get(sendingServer).sendTemplateMessage(sendMailDto);
     }
 
 

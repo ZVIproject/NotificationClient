@@ -1,6 +1,6 @@
 package com.studnnet.notification_system.controller;
 
-import com.studnnet.notification_system.component.entity.SendMailEntity;
+import com.studnnet.notification_system.component.dto.SendMailDto;
 import com.studnnet.notification_system.interfacee.MailSendService;
 import com.studnnet.notification_system.service.MailSendServiceDispatcher;
 import com.studnnet.notification_system.utils.Const;
@@ -31,12 +31,12 @@ public class SendControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private SendMailEntity sendMailEntity;
+    private SendMailDto sendMailDto;
 
-    private static String createMailInJson(SendMailEntity sendMailEntity) {
-        return "{ \"to\": \"" + sendMailEntity.getTo() + "\", " +
-            "\"subject\":\"" + sendMailEntity.getSubject() + "\"," +
-            "\"text\":\"" + sendMailEntity.getText() + "\"}";
+    private static String createMailInJson(SendMailDto sendMailDto) {
+        return "{ \"to\": \"" + sendMailDto.getTo() + "\", " +
+            "\"subject\":\"" + sendMailDto.getSubject() + "\"," +
+            "\"text\":\"" + sendMailDto.getText() + "\"}";
     }
 
     @Before
@@ -45,28 +45,28 @@ public class SendControllerTest {
         final String emailText = "Hello world!!!";
         final String emailSubject = "test";
 
-        this.sendMailEntity = new SendMailEntity(receiversEmail, emailText, emailSubject);
+        this.sendMailDto = new SendMailDto(receiversEmail, emailText, emailSubject, 1);
     }
 
     @Test
     public void sendSimpleMessage() throws Exception {
         doReturn(mailSendService).when(dispatcher).get(Const.GMAIL);
-        doReturn(new SimpleMailMessage()).when(mailSendService).sendSimpleMessage(sendMailEntity);
+        doReturn(new SimpleMailMessage()).when(mailSendService).sendSimpleMessage(sendMailDto);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/rest/v1/mail/gmail/simple")
             .accept("application/json")
-            .contentType("application/json").content(createMailInJson(sendMailEntity)))
+            .contentType("application/json").content(createMailInJson(sendMailDto)))
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void sendTemplateMessage() throws Exception {
         doReturn(mailSendService).when(dispatcher).get(Const.GMAIL);
-        doReturn(new SimpleMailMessage()).when(mailSendService).sendSimpleMessage(sendMailEntity);
+        doReturn(new SimpleMailMessage()).when(mailSendService).sendSimpleMessage(sendMailDto);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/rest/v1/mail/gmail/template")
             .accept("application/json")
-            .contentType("application/json").content(createMailInJson(sendMailEntity)))
+            .contentType("application/json").content(createMailInJson(sendMailDto)))
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 

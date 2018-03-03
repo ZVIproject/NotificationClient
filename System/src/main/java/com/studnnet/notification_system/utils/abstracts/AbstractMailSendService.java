@@ -1,13 +1,19 @@
 package com.studnnet.notification_system.utils.abstracts;
 
-import com.studnnet.notification_system.component.entity.SendMailEntity;
+import com.studnnet.notification_system.component.dto.SendMailDto;
+import com.studnnet.notification_system.component.entity.MessageEntity;
+import com.studnnet.notification_system.component.repositories.MessageRepository;
+import com.studnnet.notification_system.component.repositories.StatisticRepository;
+import com.studnnet.notification_system.component.repositories.UserRepository;
 import com.studnnet.notification_system.configuration.EmailProperties;
 import com.studnnet.notification_system.interfacee.MailSendService;
 import com.studnnet.notification_system.utils.Const;
+import com.studnnet.notification_system.utils.enums.MailStatus;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -23,10 +29,12 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
 
     private static final Logger LOGGER = Logger.getLogger(AbstractMailSendService.class);
 
-    @Autowired
-    protected EmailProperties emailProperties;
-
     protected JavaMailSender mailSender;
+
+    @Autowired protected EmailProperties emailProperties;
+    @Autowired private MessageRepository messageRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired private StatisticRepository statisticRepository;
 
     @Value("${threads.count}")
     private int threadsCount;
@@ -35,11 +43,11 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
 
     private int currentEmailArrayPosition = 0;
 
-    private SendMailEntity sendMailEntity;
+    private SendMailDto sendMailDto;
 
-    public void doSend(SendMailEntity sendMailEntity) {
-        this.sendMailEntity = sendMailEntity;
-        threadElementsCount = (int) Math.ceil((double)sendMailEntity.getTo().length / threadsCount);
+    public void doSend(SendMailDto sendMailDto) {
+        this.sendMailDto = sendMailDto;
+        threadElementsCount = (int) Math.ceil((double) sendMailDto.getTo().length / threadsCount);
 
         final ExecutorService executorService = Executors.newFixedThreadPool(threadsCount);
 
@@ -63,27 +71,27 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
     @Override
     public void run() {
         if (isSimpleMessage()) {
-            sendSimpleMessage(sendMailEntity);
+            sendSimpleMessage(sendMailDto);
         } else {
-            sendTemplateMessage(sendMailEntity);
+            sendTemplateMessage(sendMailDto);
         }
     }
 
     private boolean isSimpleMessage() {
-        return sendMailEntity.getText() != null;
+        return sendMailDto.getText() != null;
     }
 
     @Override
-    public SimpleMailMessage sendTemplateMessage(SendMailEntity sendMailEntity) {
-        sendMailEntity.setText(
-            String.format(Const.TEMPLATE_TEXT, sendMailEntity.getTo(),
-                sendMailEntity.getSubject()));
+    public SimpleMailMessage sendTemplateMessage(SendMailDto sendMailDto) {
+        sendMailDto.setText(
+            String.format(Const.TEMPLATE_TEXT, sendMailDto.getTo(),
+                sendMailDto.getSubject()));
 
-        return sendSimpleMessage(sendMailEntity);
+        return sendSimpleMessage(sendMailDto);
     }
 
     @Override
-    public SimpleMailMessage sendSimpleMessage(SendMailEntity sendMailEntity) {
+    public SimpleMailMessage sendSimpleMessage(SendMailDto sendMailDto) {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -96,15 +104,70 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
 
     private SimpleMailMessage prepareMessage(SimpleMailMessage message) {
 
-        message.setTo(getArrayElements(sendMailEntity.getTo()));
-        message.setSubject(sendMailEntity.getSubject());
-        message.setText(sendMailEntity.getText());
+        String[] messagesForSend = getArrayElements(sendMailDto.getTo());
+
+        for (int i = 0; i < messagesForSend.length; i++) {
+
+            String emailForSend = messagesForSend[i];
+
+            MessageEntity storedMessage = messageRepository.findByEmail(emailForSend);
+
+            if(storedMessage == null){
+                MessageEntity messageEntity = new MessageEntity();
+
+                messageEntity.setEmail(emailForSend);
+                messageEntity.setSendCount(1);
+                messageEntity.setStatus(MailStatus.NEW);
+                messageEntity.setUserEntity(
+                    userRepository.findOne(
+                        sendMailDto.getUserId()));
+
+                messageRepository.save(messageEntity);
+
+            }
+
+            try {
+
+                message.setTo(emailForSend);
+
+                message.setSubject(sendMailDto.getSubject());
+                message.setText(sendMailDto.getText());
+
+                storedMessage.setStatus(MailStatus.SENDED);
+
+                messageRepository.save(storedMessage);
+
+                statisticRepository.addSendCountByEmail();
+
+            } catch (MailException e) {
+                loggingError("fail to send message to "+ emailForSend, e);
+
+                try {
+                    message.setTo(emailForSend);
+
+                    message.setSubject(sendMailDto.getSubject());
+                    message.setText(sendMailDto.getText());
+
+                    statisticRepository.addSendCountByEmail();
+                }catch (MailException e1){
+                    loggingError("error message to "+ emailForSend, e);
+                    storedMessage.setStatus(MailStatus.FAIL);
+                    messageRepository.save(storedMessage);
+                    statisticRepository.addFailedCountByEmail();
+                }
+
+
+
+            }
+        }
 
         return message;
     }
 
     private synchronized String[] getArrayElements(String[] array){
-          return  Arrays.copyOfRange(array, currentEmailArrayPosition,
+
+
+        return Arrays.copyOfRange(array, currentEmailArrayPosition,
                 currentEmailArrayPosition += threadElementsCount);
     }
 

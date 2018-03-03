@@ -1,4 +1,4 @@
-package com.studnnet.notification_system.component.entity;
+package com.studnnet.notification_system.component.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -10,12 +10,14 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @AllArgsConstructor
-public class SendMailEntity {
+public class SendMailDto {
 
     private String[] to;
 
     private String text;
 
     private String subject;
+
+    private Integer userId;
 
 }

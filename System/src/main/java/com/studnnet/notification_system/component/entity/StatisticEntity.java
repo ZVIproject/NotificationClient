@@ -23,7 +23,6 @@ public class StatisticEntity {
     @Column(name = "failed_count")
     private Integer failedCount;
 
-
     @Column(name = "create_date", insertable = false, updatable = false)
     @CreationTimestamp
     private Date created;

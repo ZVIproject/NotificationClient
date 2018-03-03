@@ -1,6 +1,5 @@
 package com.studnnet.notification_system.service;
 
-import com.studnnet.notification_system.component.entity.SendMailEntity;
 import com.studnnet.notification_system.configuration.EmailProperties;
 import com.studnnet.notification_system.utils.Const;
 import com.studnnet.notification_system.utils.abstracts.AbstractMailSendService;
