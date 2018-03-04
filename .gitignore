@@ -11,3 +11,4 @@ build.fxbuild
 NotificationClient.ipr
 NotificationClient.iws
 NotificationClient.iml
+out/

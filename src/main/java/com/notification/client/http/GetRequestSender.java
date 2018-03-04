@@ -1,6 +1,5 @@
 package com.notification.client.http;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.notification.client.components.entities.Message;
 import com.notification.client.components.entities.Statistic;
 import com.notification.client.components.entities.User;

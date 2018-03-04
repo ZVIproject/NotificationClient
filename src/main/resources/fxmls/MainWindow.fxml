@@ -13,7 +13,7 @@
          <children>
             <VBox prefHeight="99.0" prefWidth="640.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="150.0" text="Сервер" textAlignment="CENTER">
+                  <Button fx:id="statusButton" mnemonicParsing="false" prefHeight="55.0" prefWidth="150.0" text="Сервер" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -83,7 +83,7 @@
                </VBox.margin>
             </Label>
             <Separator prefWidth="200.0" />
-            <TableView prefHeight="514.0" prefWidth="1000.0">
+            <TableView fx:id="statisticTable" prefHeight="514.0" prefWidth="1000.0">
               <columns>
                 <TableColumn prefWidth="241.0" text="Користувач" />
                 <TableColumn prefWidth="162.0" text="Статус" />
@@ -105,14 +105,9 @@
                   <MenuItem mnemonicParsing="false" onAction="#readFromFile" text="Додати через файл" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="Повідомлення">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="sendMailMenuItem" mnemonicParsing="false" onAction="#sendMail" text="Надіслати" />
                </items>
             </Menu>
          </menus>

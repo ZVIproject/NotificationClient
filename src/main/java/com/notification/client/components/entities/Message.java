@@ -15,9 +15,7 @@ public class Message {
 	private Integer userId;
 	
 	
-	public Message() {
-		// default constructor
-	}
+	public Message() {}
 	
 	public Message(
 			Integer id,
@@ -27,7 +25,7 @@ public class Message {
 			Date created,
 			Date modified,
 			Integer userId
-		) {
+	) {
 		this.id = id;
 		this.email = email;
 		this.sendCount = sendCount;

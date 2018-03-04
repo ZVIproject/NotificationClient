@@ -18,7 +18,6 @@ public class User {
 	private String position;
 	private Date created;
 	private Date modified;
-	private Set<Integer> messages;
 	
 	public User() {
 		// default constructor
@@ -32,9 +31,8 @@ public class User {
 			String lastName,
 			String position,
 			Date created,
-			Date modified,
-			Set<Integer> messages
-		) {
+			Date modified
+	) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -43,7 +41,6 @@ public class User {
 		this.position = position;
 		this.created = created;
 		this.modified = modified;
-		this.messages = messages;
 	}
 	
 	
@@ -111,14 +108,6 @@ public class User {
 		this.modified = modified;
 	}
 
-	public Set<Integer> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(Set<Integer> messages) {
-		this.messages = messages;
-	}
-
 	/**
 	 * Filing and return new object of User. 
 	 * @param resultSet 
@@ -154,8 +143,6 @@ public class User {
 		user.setFirstName(cells.get(2).getStringCellValue());
 		user.setLastName(cells.get(3).getStringCellValue());
 		user.setPosition(cells.get(4).getStringCellValue());
-		user.setCreated(cells.get(5).getDateCellValue());
-		user.setModified(cells.get(6).getDateCellValue());
 		
 		return user;
 	}

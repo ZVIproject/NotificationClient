@@ -21,7 +21,7 @@ public class Statistic {
 			Integer failedCount,
 			Date created,
 			Date modified
-		) {
+	) {
 		this.id = id;
 		this.sendCount = sendCount;
 		this.failedCount = failedCount;

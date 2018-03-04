@@ -2,7 +2,7 @@ package com.notification.client.controllers;
 
 import java.io.IOException;
 
-import com.notification.client.dao.UserDAOService;
+import com.notification.client.rest.UserDAOService;
 import com.notification.client.components.entities.User;
 import com.notification.client.interfaces.LoggerService;
 import com.notification.client.services.LoggerServiceImpl;
@@ -16,21 +16,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class RegisterController {
-	
-	private LoggerService loggerService;
-	
-	@FXML private Button cancelButton;
-	
-	@FXML private TextField firstNameField;
-	@FXML private TextField lastNameField;
-	@FXML private TextField loginField;
-	@FXML private TextField passwordField;
 
-	private UserDAOService userDAOService = new UserDAOService(); 
-	
-	
+    private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+
+    @FXML private Button cancelButton;
+    @FXML private TextField firstNameField;
+    @FXML private TextField lastNameField;
+    @FXML private TextField loginField;
+    @FXML private TextField passwordField;
+
+    private UserDAOService userDAOService;
+
 	public RegisterController() {
-		loggerService = new LoggerServiceImpl();
+        userDAOService = new UserDAOService();
 	}
 	
 	public void showDialog() {
@@ -46,7 +44,7 @@ public class RegisterController {
 			stage.show();
 			
 		} catch(IOException | NullPointerException e) {
-			loggerService.logError(e, "Exception during register form opening");
+			logger.logError(e, "Exception during register form opening");
 			throw new RuntimeException(e);
 		}
 	}
@@ -71,15 +69,14 @@ public class RegisterController {
 		user.setUsername(username);
 		user.setPassword(password);
 		
-		Integer id = userDAOService.create(user);
-		
-		if(id >= 0) {
-			user.setId(id);
-			MainController.setUser(user);
-			openMainWindow();
-		} else {
+		User returnedUser = userDAOService.createUser(user);
+
+		if (returnedUser == null) {
 			return;
 		}
+
+		MainController.setUser(returnedUser);
+		openMainWindow();
 	}
 	
 	public void cancel() {

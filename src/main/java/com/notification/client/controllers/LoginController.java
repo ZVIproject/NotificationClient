@@ -1,8 +1,6 @@
 package com.notification.client.controllers;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.notification.client.components.entities.User;
 import com.notification.client.rest.UserDAOService;
@@ -58,13 +56,12 @@ public class LoginController {
 		user.setUsername(login);
 		user.setPassword(password);
 
-        if (!userDAOService.checkUser(user)) {
-            loginField.setText("");
-            passwordField.setText("");
-            AlertController alertController = new AlertController();
-            alertController.showDialog("Користувача із таким ім'ям та паролем не знайдено");
-            return;
-        }
+//        if (!userDAOService.checkUser(user)) {
+//            loginField.setText("");
+//            passwordField.setText("");
+//            IncorrectUserAlert alert = new IncorrectUserAlert();
+//            alert.showDialog();
+//        }
 		
 		openMainWindow();
 	}

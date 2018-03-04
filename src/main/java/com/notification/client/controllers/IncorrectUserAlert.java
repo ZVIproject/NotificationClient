@@ -11,25 +11,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AlertController {
+public class IncorrectUserAlert {
 
+    @FXML private Label findThisLabel;
     @FXML private Button button;
-    @FXML private Label label;
 
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
 
-    public void showDialog(String message) {
+    public void showDialog() {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/Alert.fxml"));
+            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/IncorrectUserAlert.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Warning");
             stage.setResizable(false);
             stage.show();
-
-            label.setText(message);
 
         } catch(IOException | NullPointerException e) {
             logger.logError(e,  "Exception during form loading");
@@ -37,5 +35,8 @@ public class AlertController {
         }
     }
 
-
+    public void exit() {
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
 }

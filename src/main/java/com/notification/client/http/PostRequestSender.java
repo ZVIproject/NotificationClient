@@ -1,18 +1,12 @@
 package com.notification.client.http;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.notification.client.components.entities.Message;
+import com.notification.client.components.entities.SendMailDto;
 import com.notification.client.components.entities.User;
 import com.notification.client.services.LoggerServiceImpl;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.execchain.RequestAbortedException;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
-import java.net.URI;
 
 public class PostRequestSender {
 
@@ -41,6 +35,9 @@ public class PostRequestSender {
         return returnedMessage;
     }
 
-    // TODO: https://github.com/ZVIproject/NotificationClient/blob/ns_system/System/src/main/java/com/studnnet/notification_system/controller/SendController.java
-    // find out the way to make such requests.
+    // SendMessage
+    public void sendMailDto(String url, SendMailDto mail) {
+        // TODO Finish this method. This is not finished version.
+        restTemplate.postForObject(url, mail, String.class);
+    }
 }

@@ -1,29 +1,35 @@
 package com.notification.client.controllers;
 
-import java.util.List;
 import java.io.IOException;
+import java.util.List;
 
-import org.apache.poi.ss.usermodel.Cell;
+import com.notification.client.rest.UserDAOService;
+import javafx.event.ActionEvent;
 
 import com.notification.client.components.entities.User;
-import com.notification.client.interfaces.LoggerService;
-import com.notification.client.interfaces.XLSFileParser;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.Cell;
 
 public class MainController {
 	
 	private static User user;
 	
-	private LoggerService loggerService;
-	private XLSFileParser parser;
-	
+	private LoggerServiceImpl logger;
+	private XLSFileParserImpl parser;
 	private Stage stage;
+
+	private UserDAOService userDAOService = new UserDAOService();
+
+	@FXML
+    private Button statusButton;
 
 
 	public static void setUser(User user) {
@@ -36,7 +42,7 @@ public class MainController {
 	
 	public MainController() {
 		parser = new XLSFileParserImpl();
-		loggerService = new LoggerServiceImpl();
+		logger = new LoggerServiceImpl();
 	}	
 	
 	public void showDialog() {
@@ -51,23 +57,32 @@ public class MainController {
 			stage.show();
 			this.stage = stage;
 		} catch(IOException | NullPointerException e) {
-			loggerService.logError(e, "Exception during form loading");
+			logger.logError(e, "Exception during form loading");
 			throw new RuntimeException(e);
 		}
 	}	
 	
-	public void readFromFile() {
-		List<List<Cell>> rows = parser.readFile(stage);
-		for(List<Cell> cells: rows) {
-			User user = User.getUser(cells);
+	public void readFromFile(ActionEvent actionEvent) {
+        List<List<Cell>> rows = parser.readFile(stage);
 
+        for(List<Cell> cells: rows) {
+            User user = User.getUser(cells);
 			try {
-//				userDAOService.create(user);
+				userDAOService.createUser(user);
 			} catch(NullPointerException e) {
-				loggerService.logError(e, "NullPointerException in readFromFile method");
+				logger.logError(e, "NullPointerException in readFromFile method");
 				throw new RuntimeException(e);
 			}
 		}
 	}
-	
+
+	public void sendMail() {
+		SendMessageController controller = new SendMessageController();
+		controller.showDialog();
+	}
+
+    private void closeCurrentWindow() {
+        Stage stage = (Stage) statusButton.getScene().getWindow();
+        stage.close();
+    }
 }
