@@ -43,11 +43,11 @@ public class XLSFileParserImpl implements XLSFileParser {
 		if(file == null || file.isDirectory()) {
 			return null;
 		}
-		
+
 		if(file.getName().endsWith(".xlsx")) {
 			try {
 				XSSFWorkbook workbook = new XSSFWorkbook(file);
-				return getContentOfXLSFile(workbook);
+				return getContentOfFile(workbook);
 				
 			} catch (InvalidFormatException | IOException e) {
 				loggerService.logError(e, "Exception during .xls file reading");
@@ -57,8 +57,8 @@ public class XLSFileParserImpl implements XLSFileParser {
 		} else if(file.getName().endsWith(".xls")) {
 			try {
 				InputStream inputStream = new FileInputStream(file);
-				HSSFWorkbook workbook = new HSSFWorkbook(inputStream);				
-				return getContentOfXLSXFile(workbook);
+				HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
+				return getContentOfFile(workbook);
 				
 			} catch (IOException e) {
 				loggerService.logError(e, "Exception during .xlsx file reading");
@@ -74,47 +74,45 @@ public class XLSFileParserImpl implements XLSFileParser {
 		return file;
 	}
 	
-	private List<List<Cell>> getContentOfXLSFile(XSSFWorkbook workbook) {
+	private List<List<Cell>> getContentOfFile(XSSFWorkbook workbook) {
 		List<List<Cell>> resultList = new ArrayList<>();
-		
-		for(int i=1; i<workbook.getNumberOfSheets(); i++) {
-			XSSFSheet currentSheet = workbook.getSheetAt(i);
-			
-			Iterator<Row> rows = currentSheet.rowIterator();
-			List<Cell> listOfCells = new ArrayList<>();
-			
-			while(rows.hasNext()) {
-				Iterator<Cell> cells = rows.next().cellIterator();
-				while(cells.hasNext()) {
-					listOfCells.add(cells.next());
-				}
-			}
-			
-			resultList.add(listOfCells);
-		}
-		
+        XSSFSheet currentSheet = workbook.getSheetAt(0);
+
+        Iterator<Row> rows = currentSheet.rowIterator();
+
+        if (rows.hasNext()) {
+            rows.next();
+        }
+        while(rows.hasNext()) {
+            List<Cell> listOfCells = new ArrayList<>();
+            Iterator<Cell> cells = rows.next().cellIterator();
+            while(cells.hasNext()) {
+                listOfCells.add(cells.next());
+            }
+            resultList.add(listOfCells);
+        }
+
 		return resultList;
 	}
 	
-	private List<List<Cell>> getContentOfXLSXFile(HSSFWorkbook workbook) {
+	private List<List<Cell>> getContentOfFile(HSSFWorkbook workbook) {
 		List<List<Cell>> resultList = new ArrayList<>();
-		
-		for(int i=1; i<workbook.getNumberOfSheets(); i++) {
-			HSSFSheet currentSheet = workbook.getSheetAt(i);
-			
-			Iterator<Row> rows = currentSheet.rowIterator();
-			List<Cell> listOfCells = new ArrayList<>();
-			
-			while(rows.hasNext()) {
-				Iterator<Cell> cells = rows.next().cellIterator();
-				while(cells.hasNext()) {
-					listOfCells.add(cells.next());
-				}
-			}
-			
-			resultList.add(listOfCells);
-		}
-		
+        HSSFSheet currentSheet = workbook.getSheetAt(0);
+
+        Iterator<Row> rows = currentSheet.rowIterator();
+
+        if (rows.hasNext()) {
+            rows.next();
+        }
+        while (rows.hasNext()) {
+            List<Cell> listOfCells = new ArrayList<>();
+            Iterator<Cell> cells = rows.next().cellIterator();
+            while (cells.hasNext()) {
+                listOfCells.add(cells.next());
+            }
+            resultList.add(listOfCells);
+        }
+
 		return resultList;
 	}
 	

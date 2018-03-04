@@ -1,16 +1,33 @@
 package com.notification.client.controllers;
 
+import com.notification.client.components.entities.Receiver;
+import com.notification.client.components.entities.SendMailDto;
+import com.notification.client.rest.SendMessageDAOService;
 import com.notification.client.services.LoggerServiceImpl;
+import com.notification.client.services.XLSFileParserImpl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.Cell;
 
 import java.io.IOException;
+import java.util.List;
 
 public class SendMessageController {
+
+    private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+
+    private SendMessageDAOService sendMessageDAOService;
+    private XLSFileParserImpl parser;
+    private Stage stage;
+
+    private ObservableList<Receiver> observableList = FXCollections.observableArrayList();
 
     @FXML
     private TextArea subjectField;
@@ -22,18 +39,22 @@ public class SendMessageController {
     private Button cancelButton;
 
     @FXML
-    private TableView<?> receiverTable;
+    private TableView<Receiver> receiverTable;
 
     @FXML
-    private TableColumn<?, String> nameColumn;
+    private TableColumn<Receiver, String> nameColumn;
 
     @FXML
-    private TableColumn<?, String> groupColumn;
+    private TableColumn<Receiver, String> groupColumn;
 
     @FXML
-    private TableColumn<?, String> emailColumn;
+    private TableColumn<Receiver, String> emailColumn;
 
-    private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+
+    public SendMessageController() {
+        sendMessageDAOService = new SendMessageDAOService();
+        parser = new XLSFileParserImpl();
+    }
 
     public void showDialog() {
         Stage stage = new Stage();
@@ -45,6 +66,7 @@ public class SendMessageController {
             stage.setTitle("Надіслати повідомлення");
             stage.setResizable(false);
             stage.show();
+            this.stage = stage;
 
         } catch(IOException | NullPointerException e) {
             logger.logError(e,  "Exception during form loading");
@@ -53,11 +75,66 @@ public class SendMessageController {
     }
 
     public void send() {
+        String subject = subjectField.getText();
+        String content = subjectField.getText();
+        if (subject.equals("") || subject.isEmpty() || content.equals("") || content.isEmpty() || observableList.isEmpty()) {
+            IncorrectDataAlert alert = new IncorrectDataAlert();
+            alert.showDialog();
+            return;
+        }
 
+        SendMailDto mail = new SendMailDto();
+        mail.setSubject(subject);
+        mail.setText(content);
+        mail.setUserId(MainController.getUser().getId());
+        mail.setTo(getReceiversEmail());
+//        sendMessageDAOService.sendSimpleMessage(mail);
+    }
+
+    public void readFromFile() {
+        List<List<Cell>> rows = parser.readFile(stage);
+        for (List<Cell> row : rows) {
+            SendMailDto mail = SendMailDto.getMail(row);
+            this.subjectField.setText(mail.getSubject());
+            this.contentField.setText(mail.getText());
+        }
+    }
+
+    public void readFromFileReceivers() {
+        List<List<Cell>> rows = parser.readFile(stage);
+        for (List<Cell> row : rows) {
+            setColumnValues(row);
+        }
     }
 
     public void cancel() {
         closeCurrentWindow();
+    }
+
+    private String[] getReceiversEmail() {
+        String[] emailArray = new String[]{};
+        int i = 0;
+        for (Receiver receiver : observableList) {
+            emailArray[i] = receiver.getEmail();
+        }
+        return emailArray;
+    }
+
+    private void setColumnValues(List<Cell> cells) {
+        Receiver receiver = new Receiver(
+                cells.get(0).getStringCellValue(),
+                cells.get(1).getStringCellValue(),
+                cells.get(2).getStringCellValue()
+        );
+        observableList.add(receiver);
+        displayRecords();
+    }
+
+    private void displayRecords() {
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("name"));
+        groupColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("group"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("email"));
+        receiverTable.setItems(observableList);
     }
 
     private void closeCurrentWindow() {

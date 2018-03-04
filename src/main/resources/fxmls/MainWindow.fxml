@@ -102,7 +102,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Користувач">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#readFromFile" text="Додати через файл" />
+                  <MenuItem fx:id="addUserMenuItem" mnemonicParsing="false" onAction="#addUser" text="Додати" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Повідомлення">

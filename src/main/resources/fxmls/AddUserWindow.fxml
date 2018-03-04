@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="892.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.AddUserController">
+   <center>
+      <VBox prefHeight="413.0" prefWidth="771.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Отримувачі">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="350.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="usersTable" prefHeight="240.0" prefWidth="771.0">
+              <columns>
+                <TableColumn fx:id="usernameColumn" prefWidth="168.0" text="Ім'я користувача" />
+                <TableColumn fx:id="passwordColumn" minWidth="8.0" prefWidth="141.0" text="Пароль" />
+                  <TableColumn fx:id="nameColumn" prefWidth="168.0" text="Ім'я" />
+                  <TableColumn fx:id="lastNameColumn" prefWidth="173.0" text="Прізвище" />
+                  <TableColumn fx:id="positionColumn" prefWidth="201.0" text="Позиція" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#send" prefHeight="60.0" prefWidth="170.0" text="Створити">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="120.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" prefHeight="60.0" prefWidth="170.0" text="Відмінити">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="280.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Користувачі">
+            <items>
+              <MenuItem fx:id="addFromFile" mnemonicParsing="false" onAction="#readFromFile" text="Зчитати з файлу" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

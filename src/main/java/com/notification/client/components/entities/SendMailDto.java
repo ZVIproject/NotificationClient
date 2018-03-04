@@ -1,5 +1,9 @@
 package com.notification.client.components.entities;
 
+import org.apache.poi.ss.usermodel.Cell;
+
+import java.util.List;
+
 public class SendMailDto {
 
     private String[] to;
@@ -46,5 +50,21 @@ public class SendMailDto {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    /**
+     * Filling User object using data from list of cells, and return it.
+     * @param cells - list of cells
+     * @return SendMailDto object
+     */
+    public static SendMailDto getMail(List<Cell> cells) {
+        if(cells == null || cells.isEmpty()) {
+            return null;
+        }
+
+        SendMailDto mail = new SendMailDto();
+        mail.setSubject(cells.get(0).getStringCellValue());
+        mail.setText(cells.get(1).getStringCellValue());
+        return mail;
     }
 }

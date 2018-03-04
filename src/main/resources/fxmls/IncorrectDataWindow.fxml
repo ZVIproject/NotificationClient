@@ -9,7 +9,7 @@
    <center>
       <VBox prefHeight="146.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="findThisLabel" text="Label">
+            <Label fx:id="findThisLabel" text="Введені невірні дані або їх недостатньо">
                <VBox.margin>
                   <Insets left="20.0" top="10.0" />
                </VBox.margin>

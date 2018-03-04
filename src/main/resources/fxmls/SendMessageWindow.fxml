@@ -8,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.SendMessageController">
    <top>
       <VBox prefHeight="118.0" prefWidth="771.0" BorderPane.alignment="CENTER">
@@ -17,12 +16,12 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Повідомлення">
                   <items>
-                    <MenuItem fx:id="mailMenuItem" mnemonicParsing="false" text="Зчитати з файлу" />
+                    <MenuItem fx:id="mailMenuItem" mnemonicParsing="false" onAction="#readFromFile" text="Зчитати з файлу" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Отримувачі">
                   <items>
-                    <MenuItem fx:id="receiverReadFromFileMenuItem" mnemonicParsing="false" text="Зчитати з файлу" />
+                    <MenuItem fx:id="receiverReadFromFileMenuItem" mnemonicParsing="false" onAction="#readFromFileReceivers" text="Зчитати з файлу" />
                   </items>
                 </Menu>
               </menus>
@@ -55,9 +54,6 @@
                      <HBox.margin>
                         <Insets bottom="20.0" left="60.0" top="20.0" />
                      </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
                   </TextArea>
                </children>
             </HBox>
@@ -95,7 +91,7 @@
               <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="265.0" text="ПІБ" />
                 <TableColumn fx:id="groupColumn" minWidth="8.0" prefWidth="201.0" text="Група" />
-                  <TableColumn fx:id="mailColumn" prefWidth="263.0" text="Email" />
+                  <TableColumn fx:id="emailColumn" prefWidth="263.0" text="Email" />
               </columns>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" top="10.0" />

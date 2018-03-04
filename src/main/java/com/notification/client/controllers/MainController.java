@@ -62,18 +62,9 @@ public class MainController {
 		}
 	}	
 	
-	public void readFromFile(ActionEvent actionEvent) {
-        List<List<Cell>> rows = parser.readFile(stage);
-
-        for(List<Cell> cells: rows) {
-            User user = User.getUser(cells);
-			try {
-				userDAOService.createUser(user);
-			} catch(NullPointerException e) {
-				logger.logError(e, "NullPointerException in readFromFile method");
-				throw new RuntimeException(e);
-			}
-		}
+	public void addUser() {
+        AddUserController controller = new AddUserController();
+        controller.showDialog();
 	}
 
 	public void sendMail() {
