@@ -1,8 +1,8 @@
 package com.notification.client.configs;
 
 public class Urls {
-    private static final String HOST = "";
-    private static final String PORT = "";
+    private static final String HOST = "http://localhost";
+    private static final String PORT = "8080";
 
     public static final String MESSAGE_CONTROLLER = HOST + ":" + PORT + "/rest/v1/ns/message/";
     public static final String SEND_CONTROLLER = HOST + ":" + PORT + "/rest/v1/mail/";  // /{sending_server}

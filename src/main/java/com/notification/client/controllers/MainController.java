@@ -1,17 +1,31 @@
 package com.notification.client.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
+import com.notification.client.Main;
+import com.notification.client.components.entities.MainStatistic;
+import com.notification.client.components.entities.Message;
+import com.notification.client.rest.MessageDAOService;
 import com.notification.client.rest.UserDAOService;
 
 import com.notification.client.components.entities.User;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
 
+import com.notification.client.utils.enums.MailStatus;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -23,11 +37,28 @@ public class MainController {
 	private XLSFileParserImpl parser;
 	private Stage stage;
 
-	private UserDAOService userDAOService = new UserDAOService();
+	private UserDAOService userDAOService;
+	private MessageDAOService messageDAOService;
+
+	private ObservableList<MainStatistic> mainStatistics = FXCollections.emptyObservableList();
+
+	@FXML private TextField lastDayInField;
+	@FXML private TextField usernameField;
+	@FXML private Button statusButton;
+	@FXML private TableView<MainStatistic> statisticTable;
+	@FXML private TableColumn<MainStatistic, String> userColumn;
+	@FXML private TableColumn<MainStatistic, String> statusColumn;
+	@FXML private TableColumn<MainStatistic, Integer> sendCountColumn;
+	@FXML private TableColumn<MainStatistic, String> sentTimeColumn;
 
 	@FXML
-    private Button statusButton;
+    public void initialize() {
+	    setRecords();
+	    displayRecords();
 
+        lastDayInField.setText(lastDayInField.getText() + " " + user.getModified());
+        usernameField.setText(usernameField.getText() + " " + user.getUsername());
+    }
 
 	public static void setUser(User user) {
 		MainController.user = user;
@@ -40,6 +71,8 @@ public class MainController {
 	public MainController() {
 		parser = new XLSFileParserImpl();
 		logger = new LoggerServiceImpl();
+		userDAOService = new UserDAOService();
+		messageDAOService = new MessageDAOService();
 	}	
 	
 	public void showDialog() {
@@ -69,8 +102,64 @@ public class MainController {
 		controller.showDialog();
 	}
 
-	public void setRecords() {
+	public void refresh() {
+	    setRecords();
+	    displayRecords();
+    }
 
+	public void setRecords() {
+	    List<Message> messages = getMostRecent(getMessages());
+	    List<Integer> idOfUsers = new ArrayList<>();
+	    messages.stream()
+                .distinct()
+                .map(message -> message.getUserId())
+                .forEach(idOfUsers::add);
+        List<User> users = getUsers(idOfUsers);
+        for (Message message : messages) {
+            for (User user : users) {
+                if (message.getUserId() == user.getId()) {
+                    MainStatistic statistic = new MainStatistic(
+                            user.getFirstName() + " " + user.getLastName(),
+                            message.getStatus().equals(MailStatus.NEW) ? "Новий" :
+                                    message.getStatus().equals(MailStatus.FAIL) ? "Помилка при надсилані" : "Надіслано",
+                            message.getSendCount(),
+                            message.getCreated().toString()
+                    );
+                    mainStatistics.add(statistic);
+                    displayRecords();
+                }
+            }
+        }
+    }
+
+    private void displayRecords() {
+        userColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("name"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("status"));
+        sendCountColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, Integer>("sendCount"));
+        sentTimeColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("created"));
+        statisticTable.setItems(mainStatistics);
+    }
+
+    private List<Message> getMessages() {
+        List<Message> messages = messageDAOService.getMessages();
+        return messages;
+    }
+
+    private List<Message> getMostRecent(List<Message> messages) {
+	    List<Message> resultList = new ArrayList<>();
+        messages.stream()
+                .sorted(Comparator.comparing(Message::getCreated))
+                .limit(15)
+                .forEach(resultList::add);
+        return resultList;
+    }
+
+    private List<User> getUsers(List<Integer> idOfUsers) {
+	    List<User> users = new ArrayList<>();
+        for (Integer id : idOfUsers) {
+            users.add(userDAOService.getUser(id));
+        }
+        return users;
     }
 
     private void closeCurrentWindow() {
