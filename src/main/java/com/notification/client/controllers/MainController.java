@@ -1,10 +1,8 @@
 package com.notification.client.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.notification.client.rest.UserDAOService;
-import javafx.event.ActionEvent;
 
 import com.notification.client.components.entities.User;
 import com.notification.client.services.LoggerServiceImpl;
@@ -16,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
 
 public class MainController {
 	

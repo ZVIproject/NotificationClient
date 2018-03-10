@@ -1,5 +1,6 @@
 package com.notification.client.controllers;
 
+import com.notification.client.components.entities.Receiver;
 import com.notification.client.components.entities.User;
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.fxml.FXML;
@@ -12,19 +13,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AddUserFormController {
+public class AddReceiverFormController {
 
     private LoggerServiceImpl logger;
 
-    @FXML private TextField usernameField;
-    @FXML private TextField passwordField;
     @FXML private TextField nameField;
-    @FXML private TextField lastNameField;
-    @FXML private TextField positionField;
+    @FXML private TextField groupField;
+    @FXML private TextField emailField;
     @FXML private Button okButton;
     @FXML private Button cancelButton;
 
-    public AddUserFormController() {
+    public AddReceiverFormController() {
         logger = new LoggerServiceImpl();
     }
 
@@ -32,7 +31,7 @@ public class AddUserFormController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/AddUserForm.fxml"));
+            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/AddReceiverForm.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Головне вікно");
@@ -45,24 +44,16 @@ public class AddUserFormController {
     }
 
     public void add() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        String firstName = nameField.getText();
-        String lastName = lastNameField.getText();
-        String position = positionField.getText();
+        String name = nameField.getText();
+        String group = groupField.getText();
+        String email = emailField.getText();
 
-        if (username.equals("") || password.equals("") || firstName.equals("")
-                || lastName.equals("") || position.equals("")) {
+        if (name.equals("") || group.equals("") || email.equals("")) {
             return;
         }
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setPosition(position);
-        AddUserController.currentController.addUser(user);
+        Receiver receiver = new Receiver(name, group, email);
+        SendMessageController.currentController.addReceiver(receiver);
         clearFields();
     }
 
@@ -71,11 +62,9 @@ public class AddUserFormController {
     }
 
     private void clearFields() {
-        usernameField.clear();
-        passwordField.clear();
         nameField.clear();
-        lastNameField.clear();
-        positionField.clear();
+        groupField.clear();
+        emailField.clear();
     }
 
     private void closeCurrentWindow() {

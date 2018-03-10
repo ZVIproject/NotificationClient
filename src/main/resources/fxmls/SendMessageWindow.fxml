@@ -22,6 +22,8 @@
                 <Menu mnemonicParsing="false" text="Отримувачі">
                   <items>
                     <MenuItem fx:id="receiverReadFromFileMenuItem" mnemonicParsing="false" onAction="#readFromFileReceivers" text="Зчитати з файлу" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="openReceiverFormMenu" mnemonicParsing="false" onAction="#openReceiverForm" text="Відкрити форму" />
                   </items>
                 </Menu>
               </menus>

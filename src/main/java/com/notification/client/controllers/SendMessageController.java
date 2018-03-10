@@ -23,37 +23,26 @@ public class SendMessageController {
 
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
 
+    public static SendMessageController currentController;
+
     private SendMessageDAOService sendMessageDAOService;
     private XLSFileParserImpl parser;
     private Stage stage;
 
     private ObservableList<Receiver> observableList = FXCollections.observableArrayList();
 
-    @FXML
-    private TextArea subjectField;
-
-    @FXML
-    private TextArea contentField;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private TableView<Receiver> receiverTable;
-
-    @FXML
-    private TableColumn<Receiver, String> nameColumn;
-
-    @FXML
-    private TableColumn<Receiver, String> groupColumn;
-
-    @FXML
-    private TableColumn<Receiver, String> emailColumn;
-
+    @FXML private TextArea subjectField;
+    @FXML private TextArea contentField;
+    @FXML private Button cancelButton;
+    @FXML private TableView<Receiver> receiverTable;
+    @FXML private TableColumn<Receiver, String> nameColumn;
+    @FXML private TableColumn<Receiver, String> groupColumn;
+    @FXML private TableColumn<Receiver, String> emailColumn;
 
     public SendMessageController() {
         sendMessageDAOService = new SendMessageDAOService();
         parser = new XLSFileParserImpl();
+        currentController = this;
     }
 
     public void showDialog() {
@@ -107,8 +96,18 @@ public class SendMessageController {
         }
     }
 
+    public void openReceiverForm() {
+        AddReceiverFormController controller = new AddReceiverFormController();
+        controller.showDialog();
+    }
+
     public void cancel() {
         closeCurrentWindow();
+    }
+
+    public void addReceiver(Receiver receiver) {
+        observableList.add(receiver);
+        displayRecords();
     }
 
     private String[] getReceiversEmail() {
