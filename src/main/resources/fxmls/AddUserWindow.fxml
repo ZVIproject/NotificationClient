@@ -61,6 +61,8 @@
           <Menu mnemonicParsing="false" text="Користувачі">
             <items>
               <MenuItem fx:id="addFromFile" mnemonicParsing="false" onAction="#readFromFile" text="Зчитати з файлу" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="addFromForm" mnemonicParsing="false" onAction="#usingForm" text="Відкрити форму" />
             </items>
           </Menu>
         </menus>

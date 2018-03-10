@@ -11,9 +11,7 @@ public class Statistic {
 	private Date modified;
 	
 	
-	public Statistic() {
-		// default constructor
-	}
+	public Statistic() {}
 	
 	public Statistic(
 			Integer id,

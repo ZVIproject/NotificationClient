@@ -1,9 +1,6 @@
 package com.notification.client.controllers;
 
-import com.notification.client.components.entities.Receiver;
-import com.notification.client.components.entities.SendMailDto;
 import com.notification.client.components.entities.User;
-import com.notification.client.rest.SendMessageDAOService;
 import com.notification.client.rest.UserDAOService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
@@ -13,9 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -27,6 +24,7 @@ import java.util.List;
 public class AddUserController {
 
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+    public static AddUserController currentController;
 
     private UserDAOService userDAOService;
     private XLSFileParserImpl parser;
@@ -34,31 +32,20 @@ public class AddUserController {
 
     private ObservableList<User> observableList = FXCollections.observableArrayList();
 
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private TableView<User> usersTable;
-
-    @FXML
-    private TableColumn<User, String> nameColumn;
-
-    @FXML
-    private TableColumn<User, String> lastNameColumn;
-
-    @FXML
-    private TableColumn<User, String> usernameColumn;
-
-    @FXML
-    private TableColumn<User, String> passwordColumn;
-
-    @FXML
-    private TableColumn<User, String> positionColumn;
+    @FXML private Button cancelButton;
+    @FXML private TableView<User> usersTable;
+    @FXML private TableColumn<User, String> nameColumn;
+    @FXML private TableColumn<User, String> lastNameColumn;
+    @FXML private TableColumn<User, String> usernameColumn;
+    @FXML private TableColumn<User, String> passwordColumn;
+    @FXML private TableColumn<User, String> positionColumn;
+    @FXML private MenuItem addFromForm;
 
 
     public AddUserController() {
         userDAOService = new UserDAOService();
         parser = new XLSFileParserImpl();
+        currentController = this;
     }
 
     public void showDialog() {
@@ -97,6 +84,11 @@ public class AddUserController {
         }
     }
 
+    public void usingForm() {
+        AddUserFormController formController = new AddUserFormController();
+        formController.showDialog();
+    }
+
     public void cancel() {
         closeCurrentWindow();
     }
@@ -119,6 +111,11 @@ public class AddUserController {
     private void closeCurrentWindow() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
+    }
+
+    public void addUser(User user) {
+        observableList.add(user);
+        displayRecords();
     }
 }
 

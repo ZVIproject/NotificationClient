@@ -72,6 +72,10 @@ public class MainController {
 		controller.showDialog();
 	}
 
+	public void setRecords() {
+
+    }
+
     private void closeCurrentWindow() {
         Stage stage = (Stage) statusButton.getScene().getWindow();
         stage.close();
