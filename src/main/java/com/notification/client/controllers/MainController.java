@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.notification.client.Main;
 import com.notification.client.components.entities.MainStatistic;
@@ -109,26 +111,16 @@ public class MainController {
 
 	public void setRecords() {
 	    List<Message> messages = getMostRecent(getMessages());
-	    List<Integer> idOfUsers = new ArrayList<>();
-	    messages.stream()
-                .distinct()
-                .map(message -> message.getUserId())
-                .forEach(idOfUsers::add);
-        List<User> users = getUsers(idOfUsers);
         for (Message message : messages) {
-            for (User user : users) {
-                if (message.getUserId() == user.getId()) {
-                    MainStatistic statistic = new MainStatistic(
-                            user.getFirstName() + " " + user.getLastName(),
-                            message.getStatus().equals(MailStatus.NEW) ? "Новий" :
-                                    message.getStatus().equals(MailStatus.FAIL) ? "Помилка при надсилані" : "Надіслано",
-                            message.getSendCount(),
-                            message.getCreated().toString()
-                    );
-                    mainStatistics.add(statistic);
-                    displayRecords();
-                }
-            }
+            MainStatistic statistic = new MainStatistic(
+                    message.getUser().getFirstName() + " " + message.getUser().getLastName(),
+                    message.getStatus().equals(MailStatus.NEW) ? "Новий" :
+                            message.getStatus().equals(MailStatus.FAIL) ? "Помилка при надсилані" : "Надіслано",
+                    message.getSendCount(),
+                    message.getCreated().toString()
+            );
+            mainStatistics.add(statistic);
+            displayRecords();
         }
     }
 
@@ -146,20 +138,10 @@ public class MainController {
     }
 
     private List<Message> getMostRecent(List<Message> messages) {
-	    List<Message> resultList = new ArrayList<>();
-        messages.stream()
-                .sorted(Comparator.comparing(Message::getCreated))
+	    return messages.stream()
+                .sorted(Comparator.comparing(Message::getModified))
                 .limit(15)
-                .forEach(resultList::add);
-        return resultList;
-    }
-
-    private List<User> getUsers(List<Integer> idOfUsers) {
-	    List<User> users = new ArrayList<>();
-        for (Integer id : idOfUsers) {
-            users.add(userDAOService.getUser(id));
-        }
-        return users;
+                .collect(Collectors.toList());
     }
 
     private void closeCurrentWindow() {

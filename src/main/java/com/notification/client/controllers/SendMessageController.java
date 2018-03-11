@@ -65,7 +65,7 @@ public class SendMessageController {
 
     public void send() {
         String subject = subjectField.getText();
-        String content = subjectField.getText();
+        String content = contentField.getText();
         if (subject.equals("") || subject.isEmpty() || content.equals("") || content.isEmpty() || observableList.isEmpty()) {
             IncorrectDataAlert alert = new IncorrectDataAlert();
             alert.showDialog();

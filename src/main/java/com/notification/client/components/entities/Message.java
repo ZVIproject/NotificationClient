@@ -1,5 +1,6 @@
 package com.notification.client.components.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.notification.client.utils.enums.MailStatus;
 
 import java.util.Date;
@@ -12,27 +13,21 @@ public class Message {
 	private MailStatus status;
 	private Date created;
 	private Date modified;
-	private Integer userId;
+
+	@JsonProperty("userEntity")
+	private User user;
 	
 	
 	public Message() {}
-	
-	public Message(
-			Integer id,
-			String email,
-			Integer sendCount,
-			MailStatus status,
-			Date created,
-			Date modified,
-			Integer userId
-	) {
+
+	public Message(Integer id, String email, Integer sendCount, MailStatus status, Date created, Date modified, User user) {
 		this.id = id;
 		this.email = email;
 		this.sendCount = sendCount;
 		this.status = status;
 		this.created = created;
 		this.modified = modified;
-		this.userId = userId;
+		this.user = user;
 	}
 
 	public Integer getId() {
@@ -83,12 +78,11 @@ public class Message {
 		this.modified = modified;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
 }
