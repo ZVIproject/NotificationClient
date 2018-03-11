@@ -55,6 +55,7 @@ public class AddReceiverFormController {
         Receiver receiver = new Receiver(name, group, email);
         SendMessageController.currentController.addReceiver(receiver);
         clearFields();
+        closeCurrentWindow();
     }
 
     public void cancel() {

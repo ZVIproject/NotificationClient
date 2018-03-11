@@ -64,6 +64,7 @@ public class AddUserFormController {
         user.setPosition(position);
         AddUserController.currentController.addUser(user);
         clearFields();
+        closeCurrentWindow();
     }
 
     public void cancel() {

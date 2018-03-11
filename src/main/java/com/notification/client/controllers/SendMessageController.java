@@ -78,6 +78,8 @@ public class SendMessageController {
         mail.setUserId(MainController.getUser().getId());
         mail.setTo(getReceiversEmail());
         sendMessageDAOService.sendSimpleMessage(mail, "gmail");
+        OperationSucceedController controller = new OperationSucceedController();
+        controller.showDialog();
     }
 
     public void readFromFile() {

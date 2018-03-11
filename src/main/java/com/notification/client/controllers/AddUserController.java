@@ -70,7 +70,11 @@ public class AddUserController {
         for (User user : observableList) {
             try {
                 userDAOService.createUser(user);
+                OperationSucceedController controller = new OperationSucceedController();
+                controller.showDialog();
             } catch(NullPointerException e) {
+                OperationFailedController controller = new OperationFailedController();
+                controller.showDialog();
                 logger.logError(e, "NullPointerException in readFromFile method");
                 throw new RuntimeException(e);
             }
