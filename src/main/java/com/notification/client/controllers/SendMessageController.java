@@ -2,6 +2,7 @@ package com.notification.client.controllers;
 
 import com.notification.client.components.entities.Receiver;
 import com.notification.client.components.entities.SendMailDto;
+import com.notification.client.components.entities.User;
 import com.notification.client.rest.SendMessageDAOService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
@@ -110,6 +111,11 @@ public class SendMessageController {
     public void addReceiver(Receiver receiver) {
         observableList.add(receiver);
         displayRecords();
+    }
+
+    public void remove() {
+        Receiver selectedReceiver = receiverTable.getSelectionModel().getSelectedItem();
+        observableList.remove(selectedReceiver);
     }
 
     private String[] getReceiversEmail() {

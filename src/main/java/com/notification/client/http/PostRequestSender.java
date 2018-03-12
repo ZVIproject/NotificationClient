@@ -17,6 +17,7 @@ public class PostRequestSender {
 
     public PostRequestSender() {
         httpClient = HttpClients.createDefault();
+        restTemplate = new RestTemplate();
     }
 
     // User

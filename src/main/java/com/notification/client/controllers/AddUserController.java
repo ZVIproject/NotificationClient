@@ -97,6 +97,11 @@ public class AddUserController {
         closeCurrentWindow();
     }
 
+    public void delete() {
+        User selectedUser = usersTable.getSelectionModel().getSelectedItem();
+        observableList.remove(selectedUser);
+    }
+
     private void setColumnValues(List<Cell> cells) {
         User user = User.getUser(cells);
         observableList.add(user);

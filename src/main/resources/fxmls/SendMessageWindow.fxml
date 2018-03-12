@@ -98,6 +98,13 @@
                <VBox.margin>
                   <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="deleteItem" mnemonicParsing="false" onAction="#remove" text="Видалити" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
             </TableView>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>

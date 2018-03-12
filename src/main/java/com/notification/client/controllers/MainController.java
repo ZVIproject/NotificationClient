@@ -23,10 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -42,14 +39,15 @@ public class MainController {
 	private UserDAOService userDAOService;
 	private MessageDAOService messageDAOService;
 
-	private ObservableList<MainStatistic> mainStatistics = FXCollections.emptyObservableList();
+	private ObservableList<MainStatistic> mainStatistics = FXCollections.observableArrayList();
 
-	@FXML private TextField lastDayInField;
-	@FXML private TextField usernameField;
+	@FXML private Label lastDayInField;
+	@FXML private Label usernameField;
 	@FXML private Button statusButton;
 	@FXML private TableView<MainStatistic> statisticTable;
 	@FXML private TableColumn<MainStatistic, String> userColumn;
 	@FXML private TableColumn<MainStatistic, String> statusColumn;
+	@FXML private TableColumn<MainStatistic, String> emailColumn;
 	@FXML private TableColumn<MainStatistic, Integer> sendCountColumn;
 	@FXML private TableColumn<MainStatistic, String> sentTimeColumn;
 
@@ -117,7 +115,8 @@ public class MainController {
                     message.getStatus().equals(MailStatus.NEW) ? "Новий" :
                             message.getStatus().equals(MailStatus.FAIL) ? "Помилка при надсилані" : "Надіслано",
                     message.getSendCount(),
-                    message.getCreated().toString()
+                    message.getCreated().toString(),
+					message.getEmail()
             );
             mainStatistics.add(statistic);
             displayRecords();
@@ -129,6 +128,7 @@ public class MainController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("status"));
         sendCountColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, Integer>("sendCount"));
         sentTimeColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("created"));
+		emailColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("email"));
         statisticTable.setItems(mainStatistics);
     }
 

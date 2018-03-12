@@ -6,14 +6,16 @@ public class MainStatistic {
     private String status;
     private Integer sendCount;
     private String created;
+    private String email;
 
     public MainStatistic() {}
 
-    public MainStatistic(String name, String status, Integer sendCount, String created) {
+    public MainStatistic(String name, String status, Integer sendCount, String created, String email) {
         this.name = name;
         this.status = status;
         this.sendCount = sendCount;
         this.created = created;
+        this.email = email;
     }
 
     public String getName() {
@@ -46,5 +48,13 @@ public class MainStatistic {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

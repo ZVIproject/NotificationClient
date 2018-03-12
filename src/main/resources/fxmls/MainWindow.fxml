@@ -66,9 +66,10 @@
             <TableView fx:id="statisticTable" prefHeight="514.0" prefWidth="1000.0">
               <columns>
                 <TableColumn fx:id="userColumn" prefWidth="241.0" text="Користувач" />
-                <TableColumn fx:id="statusColumn" prefWidth="162.0" text="Статус" />
-                  <TableColumn fx:id="sendCountColumn" prefWidth="263.0" text="Кількість відправлень" />
-                  <TableColumn fx:id="sentTimeColumn" prefWidth="313.0" text="Час відправки" />
+                <TableColumn fx:id="statusColumn" prefWidth="110.0" text="Статус" />
+                <TableColumn fx:id="emailColumn" prefWidth="216.0" text="email" />
+                <TableColumn fx:id="sendCountColumn" prefWidth="190.0" text="Кількість відправлень" />
+                <TableColumn fx:id="sentTimeColumn" prefWidth="221.0" text="Час відправки" />
               </columns>
                <VBox.margin>
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
