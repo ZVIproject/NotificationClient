@@ -1,5 +1,7 @@
 package com.studnnet.notification_system.component.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,13 +36,14 @@ public class UserEntity {
     private String position;
 
     @Column(name = "create_date", insertable = false, updatable = false)
-    @CreationTimestamp
+    @UpdateTimestamp
     private Date created;
 
     @Column(name = "modified_date")
     @UpdateTimestamp
     private Date modified;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userEntity")
     private Set<MessageEntity> messages;
 }

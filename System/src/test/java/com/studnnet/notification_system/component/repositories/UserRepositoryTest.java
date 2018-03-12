@@ -9,6 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -26,8 +27,8 @@ public class UserRepositoryTest {
     public void existsByUsernameAndPasswordFailedIfUserIsNotExist() {
         createUser();
         try {
-            assertTrue("Should be true", userRepository.
-                existsByUsernameAndPassword(testUser.getUsername(),
+            assertNotNull("Should be not null", userRepository.
+                findByUsernameAndPassword(testUser.getUsername(),
                     testUser.getPassword()));
         } finally {
             userRepository.delete(testUser.getId());

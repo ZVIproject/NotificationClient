@@ -1,5 +1,6 @@
 package com.studnnet.notification_system.component.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.studnnet.notification_system.utils.enums.MailStatus;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,7 +31,7 @@ public class MessageEntity {
     private MailStatus status = MailStatus.NEW;
 
     @Column(name = "create_date", insertable = false, updatable = false)
-    @CreationTimestamp
+    @UpdateTimestamp
     private Date created;
 
     @Column(name = "modified_date")

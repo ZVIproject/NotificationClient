@@ -34,8 +34,8 @@ public class UserController {
         return userRepository.save(userEntity);
     }
 
-    @GetMapping("/authorization")
-    public boolean checkUser(@RequestBody UserEntity userEntity){
-        return userRepository.existsByUsernameAndPassword(userEntity.getUsername(), userEntity.getPassword());
+    @PostMapping("/authorization")
+    public UserEntity checkUser(@RequestBody UserEntity userEntity){
+        return userRepository.findByUsernameAndPassword(userEntity.getUsername(), userEntity.getPassword());
     }
 }

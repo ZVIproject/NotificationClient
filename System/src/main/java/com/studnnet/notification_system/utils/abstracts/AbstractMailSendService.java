@@ -13,11 +13,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,19 +39,27 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
     @Autowired private MessageRepository messageRepository;
     @Autowired private UserRepository userRepository;
     @Autowired private StatisticRepository statisticRepository;
+    @Autowired private EntityManager entityManager;
 
     @Value("${threads.count}")
     private int threadsCount;
 
     private int threadElementsCount;
 
-    private int currentEmailArrayPosition = 0;
+    private int currentEmailArrayPosition;
 
     private SendMailDto sendMailDto;
+    private int sendCount ;
+    private int failedCount ;
+
 
     public void doSend(SendMailDto sendMailDto) {
+        sendCount =0 ;
+        failedCount = 0;
+        currentEmailArrayPosition = 0;
+
         this.sendMailDto = sendMailDto;
-        threadElementsCount = (int) Math.ceil((double) sendMailDto.getTo().length / threadsCount);
+        threadElementsCount = (int) Math.ceil((double) (sendMailDto.getTo().length) / threadsCount);
 
         final ExecutorService executorService = Executors.newFixedThreadPool(threadsCount);
 
@@ -71,7 +83,10 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
     @Override
     public void run() {
         if (isSimpleMessage()) {
-            sendSimpleMessage(sendMailDto);
+//            sendSimpleMessage(sendMailDto);
+
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+            prepareMessage(sendMailDto, simpleMailMessage);
         } else {
             sendTemplateMessage(sendMailDto);
         }
@@ -90,19 +105,17 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
         return sendSimpleMessage(sendMailDto);
     }
 
+
     @Override
     public SimpleMailMessage sendSimpleMessage(SendMailDto sendMailDto) {
 
-        SimpleMailMessage message = new SimpleMailMessage();
+        doSend(sendMailDto);
 
-        mailSender.send(prepareMessage(message));
-
-        loggingSentEmails(message.getTo());
-
-        return message;
+        return null;
     }
 
-    private SimpleMailMessage prepareMessage(SimpleMailMessage message) {
+    private SimpleMailMessage prepareMessage(SendMailDto sendMailDto, SimpleMailMessage message) {
+
 
         String[] messagesForSend = getArrayElements(sendMailDto.getTo());
 
@@ -133,11 +146,14 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
                 message.setSubject(sendMailDto.getSubject());
                 message.setText(sendMailDto.getText());
 
-                storedMessage.setStatus(MailStatus.SENDED);
+               storedMessage.setStatus(MailStatus.SENDED);
+                storedMessage.setSendCount(storedMessage.getSendCount()+1);
 
                 messageRepository.save(storedMessage);
 
-                statisticRepository.addSendCountByEmail();
+                mailSender.send(message);
+
+                sendCount++;
 
             } catch (MailException e) {
                 loggingError("fail to send message to "+ emailForSend, e);
@@ -148,12 +164,16 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
                     message.setSubject(sendMailDto.getSubject());
                     message.setText(sendMailDto.getText());
 
-                    statisticRepository.addSendCountByEmail();
+                    mailSender.send(message);
+                    sendCount++;
                 }catch (MailException e1){
                     loggingError("error message to "+ emailForSend, e);
                     storedMessage.setStatus(MailStatus.FAIL);
                     messageRepository.save(storedMessage);
-                    statisticRepository.addFailedCountByEmail();
+
+                    loggingError("Failed to send", e);
+
+                    failedCount++;
                 }
 
 
@@ -161,11 +181,21 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
             }
         }
 
+
+        loggingSentEmails(message.getTo());
+
+       // addSendCount();
+
         return message;
     }
 
-    private synchronized String[] getArrayElements(String[] array){
+    public void addSendCount(){
+        statisticRepository.addSendCountByEmail(sendCount);
+        statisticRepository.addFailedCountByEmail(failedCount);
+    }
 
+
+    private synchronized String[] getArrayElements(String[] array){
 
         return Arrays.copyOfRange(array, currentEmailArrayPosition,
                 currentEmailArrayPosition += threadElementsCount);
@@ -178,7 +208,7 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
     }
 
     private void loggingError(String errorPlace, Exception e) {
-        LOGGER.error(String.format("%s :: %s", errorPlace, e.getMessage()));
+        LOGGER.error(String.format("%s :********************************: %s", errorPlace, e.getMessage()));
     }
 
 }
