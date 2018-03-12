@@ -25,8 +25,8 @@ public class PostRequestSender {
         return returnedUser;
     }
 
-    public boolean checkUser(String url, User user) {
-        boolean response = restTemplate.postForObject(url, user, boolean.class);
+    public User checkUser(String url, User user) {
+        User response = restTemplate.postForObject(url, user, User.class);
         return response;
     }
 

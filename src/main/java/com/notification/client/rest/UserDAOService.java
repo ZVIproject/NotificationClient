@@ -40,8 +40,7 @@ public class UserDAOService {
         return returnedUser;
     }
 
-    public boolean checkUser(User user) {
-        boolean response = postRequestSender.checkUser(Urls.USER_CONTROLLER + "authorization", user);
-        return response;
+    public User checkUser(User user) {
+        return postRequestSender.checkUser(Urls.USER_CONTROLLER + "authorization", user);
     }
 }

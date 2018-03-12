@@ -56,7 +56,7 @@ public class LoginController {
 		user.setUsername(login);
 		user.setPassword(password);
 
-        if (!userDAOService.checkUser(user)) {
+        if ( (user = userDAOService.checkUser(user)) == null) {
             loginField.setText("");
             passwordField.setText("");
             IncorrectUserAlert alert = new IncorrectUserAlert();
