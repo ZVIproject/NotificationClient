@@ -6,6 +6,7 @@ import com.notification.client.http.GetRequestSender;
 import com.notification.client.http.PostRequestSender;
 import com.notification.client.http.PutRequestSender;
 
+import java.util.Date;
 import java.util.List;
 
 public class MessageDAOService {
@@ -23,6 +24,22 @@ public class MessageDAOService {
     public List<Message> createMessages(List<Message> messages) {
         List<Message> messageList = putRequestSender.sendMessages(Urls.MESSAGE_CONTROLLER + "all", messages);
         return messageList;
+    }
+
+    public boolean addToBlackList(List<String> emails) {
+        return postRequestSender.addToBlackList(Urls.MESSAGE_CONTROLLER + "blacklist", emails);
+    }
+
+    public List<Message> getBlackListedMessages() {
+        return getRequestSender.getBlackListedMessages(Urls.MESSAGE_CONTROLLER + "blacklist");
+    }
+
+    public List<Message> getMessagesFromTo(Date from, Date to) {
+        return getRequestSender.getMessagesFromTo(Urls.MESSAGE_CONTROLLER + from.toString() + "/" + to.toString());
+    }
+
+    public boolean removeFromBlackList(List<String> emails) {
+        return postRequestSender.removeFromBlackList(Urls.MESSAGE_CONTROLLER + "blacklist/remove", emails);
     }
 
     public Message createMessage(Message message) {

@@ -84,6 +84,8 @@
             <Menu mnemonicParsing="false" text="Користувач">
                <items>
                   <MenuItem fx:id="addUserMenuItem" mnemonicParsing="false" onAction="#addUser" text="Додати" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="blackListMenu" mnemonicParsing="false" onAction="#openBlackList" text="Чорний список" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Повідомлення">

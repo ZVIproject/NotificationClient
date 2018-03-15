@@ -9,6 +9,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class GetRequestSender {
@@ -47,6 +48,16 @@ public class GetRequestSender {
         logger.logInfo("Sending GET request to " + url);
         Message message = restTemplate.getForObject(url, Message.class);
         return message;
+    }
+
+    public List<Message> getBlackListedMessages(String url) {
+        Message[] messages = restTemplate.getForObject(url, Message[].class);
+        return Arrays.asList(messages);
+    }
+
+    public List<Message> getMessagesFromTo(String url) {
+        Message[] messages = restTemplate.getForObject(url, Message[].class);
+        return Arrays.asList(messages);
     }
 
     // Statistic

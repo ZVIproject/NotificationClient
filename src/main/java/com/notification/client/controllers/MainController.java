@@ -25,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -33,7 +34,6 @@ public class MainController {
 	private static User user;
 	
 	private LoggerServiceImpl logger;
-	private XLSFileParserImpl parser;
 	private Stage stage;
 
 	private UserDAOService userDAOService;
@@ -58,6 +58,8 @@ public class MainController {
 
         lastDayInField.setText(lastDayInField.getText() + " " + user.getModified());
         usernameField.setText(usernameField.getText() + " " + user.getUsername());
+
+        statusButton.setStyle("-fx-background-color: #258030");
     }
 
 	public static void setUser(User user) {
@@ -69,7 +71,6 @@ public class MainController {
 	}
 	
 	public MainController() {
-		parser = new XLSFileParserImpl();
 		logger = new LoggerServiceImpl();
 		userDAOService = new UserDAOService();
 		messageDAOService = new MessageDAOService();
@@ -105,6 +106,13 @@ public class MainController {
 	public void refresh() {
 	    setRecords();
 	    displayRecords();
+
+	    try {
+			User user = userDAOService.checkUser(MainController.user);
+			statusButton.setStyle("-fx-background-color: #258030");
+		} catch (Exception e) {
+			statusButton.setStyle("-fx-background-color: #991520");
+		}
     }
 
 	public void setRecords() {
@@ -145,7 +153,6 @@ public class MainController {
     }
 
     private void closeCurrentWindow() {
-        Stage stage = (Stage) statusButton.getScene().getWindow();
         stage.close();
     }
 }

@@ -8,6 +8,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 public class PostRequestSender {
 
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
@@ -31,9 +33,20 @@ public class PostRequestSender {
         return response;
     }
 
+    // Message
     public Message sendMessage(String url, Message message) {
         Message returnedMessage = restTemplate.postForObject(url, message, Message.class);
         return returnedMessage;
+    }
+
+    public boolean addToBlackList(String url, List<String> emails) {
+        restTemplate.postForObject(url, emails, void.class);
+        return true;
+    }
+
+    public boolean removeFromBlackList(String url, List<String> emails) {
+        restTemplate.postForObject(url, emails, void.class);
+        return true;
     }
 
     // SendMessage
