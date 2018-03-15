@@ -89,6 +89,16 @@ public class BlackListController {
         closeCurrentWindow();
     }
 
+    public void changeStatusActive() {
+        Message selectedMessage = activeEmailsTable.getSelectionModel().getSelectedItem();
+        selectedMessage.setBlackListed(true);
+    }
+
+    public void changeStatusInactive() {
+        Message selectedMessage = blackListEmailsTable.getSelectionModel().getSelectedItem();
+        selectedMessage.setBlackListed(true);
+    }
+
     private List<Message> getChangedActive() {
         List<Message> changedMessages = new ArrayList<>();
         activeList.forEach(message -> {
