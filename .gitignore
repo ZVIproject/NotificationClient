@@ -1,0 +1,14 @@
+### Unnecessary ###
+bin/
+build/
+gradle/
+.gradle/
+build.fxbuild
+.classpath
+.project
+.settings
+.idea/
+NotificationClient.ipr
+NotificationClient.iws
+NotificationClient.iml
+out/
