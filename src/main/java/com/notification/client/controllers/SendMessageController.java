@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.Cell;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SendMessageController {
@@ -119,12 +120,15 @@ public class SendMessageController {
     }
 
     private String[] getReceiversEmail() {
-        String[] emailArray = new String[]{};
-        int i = 0;
-        for (Receiver receiver : observableList) {
-            emailArray[i] = receiver.getEmail();
-        }
-        return emailArray;
+        List<String> emailArray = new ArrayList<>();
+
+        observableList.forEach(message -> {
+                emailArray.add(message.getEmail());
+        });
+
+        String[] e = new String[]{};
+
+        return emailArray.toArray(e);
     }
 
     private void setColumnValues(List<Cell> cells) {

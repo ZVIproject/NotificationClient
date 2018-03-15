@@ -13,7 +13,10 @@ public class Message {
 	private MailStatus status;
 	private Date created;
 	private Date modified;
+<<<<<<< HEAD
 	private Boolean isBlackListed;
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 
 	@JsonProperty("userEntity")
 	private User user;
@@ -86,6 +89,7 @@ public class Message {
 	public void setUser(User user) {
 		this.user = user;
 	}
+<<<<<<< HEAD
 
 	public Boolean getBlackListed() {
 		return isBlackListed;
@@ -94,4 +98,6 @@ public class Message {
 	public void setBlackListed(Boolean blackListed) {
 		isBlackListed = blackListed;
 	}
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 }

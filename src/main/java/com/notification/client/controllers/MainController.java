@@ -25,7 +25,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+<<<<<<< HEAD
 import javafx.scene.layout.BackgroundFill;
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -34,6 +37,10 @@ public class MainController {
 	private static User user;
 	
 	private LoggerServiceImpl logger;
+<<<<<<< HEAD
+=======
+	private XLSFileParserImpl parser;
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 	private Stage stage;
 
 	private UserDAOService userDAOService;
@@ -58,8 +65,11 @@ public class MainController {
 
         lastDayInField.setText(lastDayInField.getText() + " " + user.getModified());
         usernameField.setText(usernameField.getText() + " " + user.getUsername());
+<<<<<<< HEAD
 
         statusButton.setStyle("-fx-background-color: #258030");
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     }
 
 	public static void setUser(User user) {
@@ -71,6 +81,10 @@ public class MainController {
 	}
 	
 	public MainController() {
+<<<<<<< HEAD
+=======
+		parser = new XLSFileParserImpl();
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 		logger = new LoggerServiceImpl();
 		userDAOService = new UserDAOService();
 		messageDAOService = new MessageDAOService();
@@ -91,6 +105,7 @@ public class MainController {
 			logger.logError(e, "Exception during form loading");
 			throw new RuntimeException(e);
 		}
+<<<<<<< HEAD
 	}
 
 	public void openStatistic() {
@@ -102,6 +117,9 @@ public class MainController {
 		BlackListController blackListController = new BlackListController();
 		blackListController.showDialog();
 	}
+=======
+	}	
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 	
 	public void addUser() {
         AddUserController controller = new AddUserController();
@@ -114,6 +132,7 @@ public class MainController {
 	}
 
 	public void refresh() {
+<<<<<<< HEAD
 	    setRecords();
 	    displayRecords();
 
@@ -123,6 +142,11 @@ public class MainController {
 		} catch (Exception e) {
 			statusButton.setStyle("-fx-background-color: #991520");
 		}
+=======
+		statisticTable.getItems().clear();
+		setRecords();
+	    displayRecords();
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     }
 
 	public void setRecords() {
@@ -133,7 +157,11 @@ public class MainController {
                     message.getStatus().equals(MailStatus.NEW) ? "Новий" :
                             message.getStatus().equals(MailStatus.FAIL) ? "Помилка при надсилані" : "Надіслано",
                     message.getSendCount(),
+<<<<<<< HEAD
                     message.getCreated().toString(),
+=======
+                    message.getModified().toString(),
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 					message.getEmail()
             );
             mainStatistics.add(statistic);
@@ -157,12 +185,21 @@ public class MainController {
 
     private List<Message> getMostRecent(List<Message> messages) {
 	    return messages.stream()
+<<<<<<< HEAD
                 .sorted(Comparator.comparing(Message::getModified))
                 .limit(15)
+=======
+                .sorted(Comparator.comparing(Message::getModified).reversed())
+                .limit(20)
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
                 .collect(Collectors.toList());
     }
 
     private void closeCurrentWindow() {
+<<<<<<< HEAD
+=======
+        Stage stage = (Stage) statusButton.getScene().getWindow();
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
         stage.close();
     }
 }

@@ -8,8 +8,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.web.client.RestTemplate;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 public class PostRequestSender {
 
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
@@ -33,12 +36,16 @@ public class PostRequestSender {
         return response;
     }
 
+<<<<<<< HEAD
     // Message
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     public Message sendMessage(String url, Message message) {
         Message returnedMessage = restTemplate.postForObject(url, message, Message.class);
         return returnedMessage;
     }
 
+<<<<<<< HEAD
     public boolean addToBlackList(String url, List<String> emails) {
         restTemplate.postForObject(url, emails, void.class);
         return true;
@@ -49,6 +56,8 @@ public class PostRequestSender {
         return true;
     }
 
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     // SendMessage
     public void sendMailDto(String url, SendMailDto mail) {
         // TODO Finish this method. This is not finished version.
