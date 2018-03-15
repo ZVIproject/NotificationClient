@@ -10,7 +10,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Date;
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 import java.util.List;
@@ -54,6 +57,7 @@ public class GetRequestSender {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<Message> top(String url) {
         Message[] messages = restTemplate.getForObject(url, Message[].class);
         return Arrays.asList(messages);
@@ -69,6 +73,8 @@ public class GetRequestSender {
         return Arrays.asList(messages);
     }
 
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     // Statistic

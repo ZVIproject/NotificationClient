@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #!/usr/bin/env sh
+=======
+#!/usr/bin/env bash
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 #!/usr/bin/env bash
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
@@ -10,6 +14,7 @@
 ##
 ##############################################################################
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Attempt to set APP_HOME
 # Resolve links: $0 may be a link
@@ -32,10 +37,15 @@ cd "$SAVED" >/dev/null
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS=""
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+=======
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS=""
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 
 APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS=""
@@ -49,6 +59,8 @@ warn () {
 
 die () {
 =======
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"
 
@@ -57,6 +69,9 @@ warn ( ) {
 }
 
 die ( ) {
+<<<<<<< HEAD
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+=======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     echo
     echo "$*"
@@ -69,7 +84,10 @@ cygwin=false
 msys=false
 darwin=false
 <<<<<<< HEAD
+<<<<<<< HEAD
 nonstop=false
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 case "`uname`" in
@@ -83,12 +101,15 @@ case "`uname`" in
     msys=true
     ;;
 <<<<<<< HEAD
+<<<<<<< HEAD
   NONSTOP* )
     nonstop=true
     ;;
 esac
 
 =======
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 esac
 
 # Attempt to set APP_HOME
@@ -109,6 +130,9 @@ cd "`dirname \"$PRG\"`/" >/dev/null
 APP_HOME="`pwd -P`"
 cd "$SAVED" >/dev/null
 
+<<<<<<< HEAD
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+=======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
@@ -136,7 +160,11 @@ fi
 
 # Increase the maximum file descriptors if we can.
 <<<<<<< HEAD
+<<<<<<< HEAD
 if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
+=======
+if [ "$cygwin" = "false" -a "$darwin" = "false" ] ; then
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 if [ "$cygwin" = "false" -a "$darwin" = "false" ] ; then
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
@@ -205,6 +233,7 @@ if $cygwin ; then
 fi
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Escape application args
 save () {
     for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
@@ -222,6 +251,8 @@ fi
 
 exec "$JAVACMD" "$@"
 =======
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 # Split up the JVM_OPTS And GRADLE_OPTS values into an array, following the shell quoting and substitution rules
 function splitJvmOpts() {
     JVM_OPTS=("$@")
@@ -230,4 +261,7 @@ eval splitJvmOpts $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS
 JVM_OPTS[${#JVM_OPTS[*]}]="-Dorg.gradle.appname=$APP_BASE_NAME"
 
 exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
+<<<<<<< HEAD
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+=======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4

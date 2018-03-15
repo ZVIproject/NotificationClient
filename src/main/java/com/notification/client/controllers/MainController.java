@@ -26,7 +26,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javafx.scene.layout.BackgroundFill;
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 import javafx.scene.layout.BorderPane;
@@ -38,6 +41,10 @@ public class MainController {
 	
 	private LoggerServiceImpl logger;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	private XLSFileParserImpl parser;
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 	private XLSFileParserImpl parser;
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
@@ -66,8 +73,11 @@ public class MainController {
         lastDayInField.setText(lastDayInField.getText() + " " + user.getModified());
         usernameField.setText(usernameField.getText() + " " + user.getUsername());
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         statusButton.setStyle("-fx-background-color: #258030");
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     }
@@ -82,6 +92,10 @@ public class MainController {
 	
 	public MainController() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		parser = new XLSFileParserImpl();
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 		parser = new XLSFileParserImpl();
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
@@ -106,6 +120,7 @@ public class MainController {
 			throw new RuntimeException(e);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 
 	public void openStatistic() {
@@ -117,6 +132,9 @@ public class MainController {
 		BlackListController blackListController = new BlackListController();
 		blackListController.showDialog();
 	}
+=======
+	}	
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 	}	
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
@@ -133,6 +151,7 @@ public class MainController {
 
 	public void refresh() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	    setRecords();
 	    displayRecords();
 
@@ -142,6 +161,11 @@ public class MainController {
 		} catch (Exception e) {
 			statusButton.setStyle("-fx-background-color: #991520");
 		}
+=======
+		statisticTable.getItems().clear();
+		setRecords();
+	    displayRecords();
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 		statisticTable.getItems().clear();
 		setRecords();
@@ -158,7 +182,11 @@ public class MainController {
                             message.getStatus().equals(MailStatus.FAIL) ? "Помилка при надсилані" : "Надіслано",
                     message.getSendCount(),
 <<<<<<< HEAD
+<<<<<<< HEAD
                     message.getCreated().toString(),
+=======
+                    message.getModified().toString(),
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
                     message.getModified().toString(),
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
@@ -186,8 +214,13 @@ public class MainController {
     private List<Message> getMostRecent(List<Message> messages) {
 	    return messages.stream()
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .sorted(Comparator.comparing(Message::getModified))
                 .limit(15)
+=======
+                .sorted(Comparator.comparing(Message::getModified).reversed())
+                .limit(20)
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
                 .sorted(Comparator.comparing(Message::getModified).reversed())
                 .limit(20)
@@ -197,6 +230,10 @@ public class MainController {
 
     private void closeCurrentWindow() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        Stage stage = (Stage) statusButton.getScene().getWindow();
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
         Stage stage = (Stage) statusButton.getScene().getWindow();
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4

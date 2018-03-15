@@ -9,8 +9,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.web.client.RestTemplate;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 public class PostRequestSender {
@@ -37,7 +40,10 @@ public class PostRequestSender {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Message
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     public Message sendMessage(String url, Message message) {
@@ -45,6 +51,7 @@ public class PostRequestSender {
         return returnedMessage;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public boolean addToBlackList(String url, List<String> emails) {
         restTemplate.postForObject(url, emails, void.class);
@@ -56,6 +63,8 @@ public class PostRequestSender {
         return true;
     }
 
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     // SendMessage

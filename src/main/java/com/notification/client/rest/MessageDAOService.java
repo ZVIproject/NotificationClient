@@ -7,7 +7,10 @@ import com.notification.client.http.PostRequestSender;
 import com.notification.client.http.PutRequestSender;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Date;
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 import java.util.List;
@@ -30,6 +33,7 @@ public class MessageDAOService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public boolean addToBlackList(List<String> emails) {
         return postRequestSender.addToBlackList(Urls.MESSAGE_CONTROLLER + "blacklist", emails);
     }
@@ -50,6 +54,8 @@ public class MessageDAOService {
         return getRequestSender.top(Urls.MESSAGE_CONTROLLER + "top");
     }
 
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
     public Message createMessage(Message message) {

@@ -2,7 +2,6 @@ package com.notification.client.controllers;
 
 import com.notification.client.components.entities.Receiver;
 import com.notification.client.components.entities.SendMailDto;
-import com.notification.client.components.entities.User;
 import com.notification.client.rest.SendMessageDAOService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
@@ -120,10 +119,11 @@ public class SendMessageController {
     }
 
     private String[] getReceiversEmail() {
+
         List<String> emailArray = new ArrayList<>();
 
         observableList.forEach(message -> {
-                emailArray.add(message.getEmail());
+            emailArray.add(message.getEmail());
         });
 
         String[] e = new String[]{};

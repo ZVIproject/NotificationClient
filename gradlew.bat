@@ -9,6 +9,12 @@
 if "%OS%"=="Windows_NT" setlocal
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS=
+
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 set DEFAULT_JVM_OPTS=
@@ -20,9 +26,12 @@ set APP_BASE_NAME=%~n0
 set APP_HOME=%DIRNAME%
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 set DEFAULT_JVM_OPTS=
 
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 =======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 @rem Find java.exe
@@ -56,14 +65,20 @@ goto fail
 
 :init
 <<<<<<< HEAD
+<<<<<<< HEAD
 @rem Get command-line arguments, handling Windows variants
 
 if not "%OS%" == "Windows_NT" goto win9xME_args
 =======
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 @rem Get command-line arguments, handling Windowz variants
 
 if not "%OS%" == "Windows_NT" goto win9xME_args
 if "%@eval[2+2]" == "4" goto 4NT_args
+<<<<<<< HEAD
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+=======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 
 :win9xME_args
@@ -76,12 +91,18 @@ if "x%~1" == "x" goto execute
 
 set CMD_LINE_ARGS=%*
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 goto execute
 
 :4NT_args
 @rem Get arguments from the 4NT Shell from JP Software
 set CMD_LINE_ARGS=%$
+<<<<<<< HEAD
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+=======
 >>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
 
 :execute
