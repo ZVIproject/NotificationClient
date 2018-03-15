@@ -91,7 +91,17 @@ public class MainController {
 			logger.logError(e, "Exception during form loading");
 			throw new RuntimeException(e);
 		}
-	}	
+	}
+
+	public void openStatistic() {
+        EmailStatisticController controller = new EmailStatisticController();
+        controller.showDialog();
+	}
+
+	public void openBlackList() {
+		BlackListController blackListController = new BlackListController();
+		blackListController.showDialog();
+	}
 	
 	public void addUser() {
         AddUserController controller = new AddUserController();

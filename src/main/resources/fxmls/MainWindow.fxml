@@ -84,14 +84,18 @@
             <Menu mnemonicParsing="false" text="Користувач">
                <items>
                   <MenuItem fx:id="addUserMenuItem" mnemonicParsing="false" onAction="#addUser" text="Додати" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="blackListMenu" mnemonicParsing="false" onAction="#openBlackList" text="Чорний список" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Повідомлення">
                <items>
                   <MenuItem fx:id="sendMailMenuItem" mnemonicParsing="false" onAction="#sendMail" text="Надіслати" />
                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="email">
+              <items>
+                  <MenuItem fx:id="blackListMenu" mnemonicParsing="false" onAction="#openBlackList" text="Чорний список" />
+                <MenuItem fx:id="statisticMenu" mnemonicParsing="false" onAction="#openStatistic" text="Статистика" />
+              </items>
             </Menu>
          </menus>
       </MenuBar>

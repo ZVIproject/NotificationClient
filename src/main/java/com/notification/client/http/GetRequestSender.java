@@ -50,6 +50,11 @@ public class GetRequestSender {
         return message;
     }
 
+    public List<Message> top(String url) {
+        Message[] messages = restTemplate.getForObject(url, Message[].class);
+        return Arrays.asList(messages);
+    }
+
     public List<Message> getBlackListedMessages(String url) {
         Message[] messages = restTemplate.getForObject(url, Message[].class);
         return Arrays.asList(messages);

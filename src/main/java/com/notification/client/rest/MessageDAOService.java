@@ -42,6 +42,10 @@ public class MessageDAOService {
         return postRequestSender.removeFromBlackList(Urls.MESSAGE_CONTROLLER + "blacklist/remove", emails);
     }
 
+    public List<Message> top() {
+        return getRequestSender.top(Urls.MESSAGE_CONTROLLER + "top");
+    }
+
     public Message createMessage(Message message) {
         Message returnedMessage = putRequestSender.sendMessage(Urls.MESSAGE_CONTROLLER, message);
         return returnedMessage;
