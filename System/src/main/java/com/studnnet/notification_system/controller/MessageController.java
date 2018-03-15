@@ -2,11 +2,14 @@ package com.studnnet.notification_system.controller;
 
 import com.studnnet.notification_system.component.entity.MessageEntity;
 import com.studnnet.notification_system.component.repositories.MessageRepository;
+import com.studnnet.notification_system.utils.enums.MailStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -17,8 +20,8 @@ public class MessageController {
     private MessageRepository messageRepository;
 
     @GetMapping("/")
-    public List<MessageEntity> getMessages() {
-        return messageRepository.findAll();
+    public List<MessageEntity> getMessagesWithoutBlackList() {
+        return messageRepository.findAllWithoutBlackList(MailStatus.BLACK_LIST);
     }
 
     @GetMapping("/{userId}")
@@ -46,6 +49,38 @@ public class MessageController {
         return messageRepository.save(messageEntities);
     }
 
+    @PostMapping("/blacklist")
+    @Transactional
+    public void addToBlackList(@RequestBody List<String> emails){
 
+        messageRepository.updateMailStatus(emails, MailStatus.BLACK_LIST);
+    }
+
+    @GetMapping("/blacklist")
+    public List<MessageEntity> getMessagesBlackList() {
+        return messageRepository.findByStatus(MailStatus.BLACK_LIST);
+    }
+
+    @GetMapping("/{from}/{to}")
+    public List<MessageEntity> getMessagesList(@PathVariable("from") long from,
+                                                    @PathVariable("to") long to) {
+
+
+
+        return  messageRepository.findByDateFromTo(MailStatus.BLACK_LIST, new Date(from), new Date(to));
+    }
+
+    @PostMapping("/blacklist/remove")
+    @Transactional
+    public void removeFromBlackList(@RequestBody List<String> emails){
+
+        messageRepository.updateMailStatus(emails, MailStatus.NEW);
+    }
+
+    @GetMapping("/top")
+    public List<MessageEntity> getMessagesTop() {
+
+        return  messageRepository.findTop(MailStatus.BLACK_LIST, new java.util.Date().getMonth()+1);
+    }
 }
 

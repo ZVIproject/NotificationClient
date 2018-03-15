@@ -135,8 +135,12 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
                     userRepository.findOne(
                         sendMailDto.getUserId()));
 
-                messageRepository.save(messageEntity);
+                storedMessage = messageRepository.save(messageEntity);
 
+            } else {
+              if(storedMessage.getStatus() == MailStatus.BLACK_LIST){
+                  continue;
+              }
             }
 
             try {
@@ -156,7 +160,7 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
                 sendCount++;
 
             } catch (MailException e) {
-                loggingError("fail to send message to "+ emailForSend, e);
+                loggingError("fail to send message to "+ emailForSend, null);
 
                 try {
                     message.setTo(emailForSend);
@@ -167,7 +171,7 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
                     mailSender.send(message);
                     sendCount++;
                 }catch (MailException e1){
-                    loggingError("error message to "+ emailForSend, e);
+                    loggingError("error message to "+ emailForSend, null);
                     storedMessage.setStatus(MailStatus.FAIL);
                     messageRepository.save(storedMessage);
 
@@ -208,7 +212,7 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
     }
 
     private void loggingError(String errorPlace, Exception e) {
-        LOGGER.error(String.format("%s :********************************: %s", errorPlace, e.getMessage()));
+        LOGGER.error(String.format(":********************************: %s", errorPlace));
     }
 
 }
