@@ -13,6 +13,7 @@ public class Message {
 	private MailStatus status;
 	private Date created;
 	private Date modified;
+	private Boolean blackListed;
 
 	@JsonProperty("userEntity")
 	private User user;
@@ -84,5 +85,13 @@ public class Message {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Boolean getBlackListed() {
+		return blackListed;
+	}
+
+	public void setBlackListed(Boolean blackListed) {
+		this.blackListed = blackListed;
 	}
 }
