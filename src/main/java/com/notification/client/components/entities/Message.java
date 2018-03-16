@@ -2,6 +2,7 @@ package com.notification.client.components.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.notification.client.utils.enums.MailStatus;
+import javafx.beans.property.BooleanProperty;
 
 import java.util.Date;
 
@@ -13,7 +14,7 @@ public class Message {
 	private MailStatus status;
 	private Date created;
 	private Date modified;
-	private Boolean blackListed;
+	private BooleanProperty blackListed;
 
 	@JsonProperty("userEntity")
 	private User user;
@@ -87,11 +88,15 @@ public class Message {
 		this.user = user;
 	}
 
-	public Boolean getBlackListed() {
+	public boolean isBlackListed() {
+		return blackListed.get();
+	}
+
+	public BooleanProperty blackListedProperty() {
 		return blackListed;
 	}
 
-	public void setBlackListed(Boolean blackListed) {
-		this.blackListed = blackListed;
+	public void setBlackListed(boolean blackListed) {
+		this.blackListed.set(blackListed);
 	}
 }

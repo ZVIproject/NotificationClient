@@ -3,6 +3,7 @@ package com.notification.client.controllers;
 import com.notification.client.components.entities.Message;
 import com.notification.client.rest.MessageDAOService;
 import com.notification.client.services.LoggerServiceImpl;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -102,7 +103,7 @@ public class BlackListController {
     private List<Message> getChangedActive() {
         List<Message> changedMessages = new ArrayList<>();
         activeList.forEach(message -> {
-            if (!message.getBlackListed()) {
+            if (!message.isBlackListed()) {
                 changedMessages.add(message);
                 activeList.remove(message);
             }
@@ -113,7 +114,7 @@ public class BlackListController {
     private List<Message> getChangedBlackListed() {
         List<Message> changedMessages = new ArrayList<>();
         blackList.forEach(message -> {
-            if (message.getBlackListed()) {
+            if (message.isBlackListed()) {
                 changedMessages.add(message);
                 blackList.remove(message);
             }
@@ -142,14 +143,28 @@ public class BlackListController {
     private void displayRecordsActive() {
         activeEmails.setCellValueFactory(new PropertyValueFactory<Message, String>("email"));
         blockColumn.setCellFactory(column -> new CheckBoxTableCell<>());
-        blockColumn.setCellValueFactory(new PropertyValueFactory<Message, Boolean>("isBlackListed"));
+        blockColumn.setCellValueFactory(cellData -> {
+            Message cellValue = cellData.getValue();
+            BooleanProperty property = cellValue.blackListedProperty();
+            property.addListener((observable, oldValue, newValue) -> {
+                cellValue.setBlackListed(newValue);
+            });
+            return property;
+        });
         activeEmailsTable.setItems(activeList);
     }
 
     private void displayRecordsBlackList() {
         blackListedEmails.setCellValueFactory(new PropertyValueFactory<Message, String>("email"));
         unlockColumn.setCellFactory(column -> new CheckBoxTableCell<>());
-        unlockColumn.setCellValueFactory(new PropertyValueFactory<Message, Boolean>("isBlackListed"));
+        unlockColumn.setCellValueFactory(cellData -> {
+            Message cellValue = cellData.getValue();
+            BooleanProperty property = cellValue.blackListedProperty();
+            property.addListener((observable, oldValue, newValue) -> {
+                cellValue.setBlackListed(newValue);
+            });
+            return property;
+        });
         blackListEmailsTable.setItems(blackList);
     }
 
