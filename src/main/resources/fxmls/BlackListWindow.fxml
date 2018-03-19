@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.BlackListController">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Активні email">
+            <!--<content>-->
+              <!--<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">-->
+                     <!--<children>-->
+                        <TableView fx:id="activeEmailsTable" editable="true" prefHeight="486.0" prefWidth="668.0">
+                          <columns>
+                            <TableColumn editable="true" fx:id="activeEmails" prefWidth="510.0" text="email" >
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="surname" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn editable="true" fx:id="blockColumn" onEditCommit="#changeStatusActive" prefWidth="155.0" text="Заблокувати" >
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="surname" />
+                                </cellValueFactory>
+                            </TableColumn>
+                          </columns>
+                        </TableView>
+                     <!--</children>-->
+                  <!--</AnchorPane>-->
+            <!--</content>-->
+          </Tab>
+          <Tab text="Чорний список">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="blackListEmailsTable" editable="true" prefHeight="487.0" prefWidth="668.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="blackListedEmails" prefWidth="508.0" text="email" />
+                            <TableColumn  editable="true" fx:id="unlockColumn" onEditCommit="#changeStatusInactive" prefWidth="159.0" text="Розблокувати" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" prefHeight="60.0" prefWidth="140.0" text="Зберегти">
+               <HBox.margin>
+                  <Insets left="80.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" prefHeight="60.0" prefWidth="140.0" text="Відмінити">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="240.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

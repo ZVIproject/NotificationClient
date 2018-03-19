@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="892.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.EmailStatisticController">
+=======
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="892.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.StatisticController">
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+=======
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="892.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.StatisticController">
+>>>>>>> 07c09e9621bce672c8e32af382c42ccf2dc685d4
+   <center>
+      <VBox prefHeight="413.0" prefWidth="771.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Статистика">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="350.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="statisticTable" prefHeight="240.0" prefWidth="771.0">
+              <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="168.0" text="Ім'я користувача" />
+                <TableColumn fx:id="sendCountColumn" minWidth="8.0" prefWidth="188.0" text="Кількість надісланих" />
+                  <TableColumn fx:id="failedCountColumn" prefWidth="195.0" text="Клькість ненадісланих" />
+                  <TableColumn fx:id="createdColumn" prefWidth="136.0" text="Створено" />
+                  <TableColumn fx:id="modifiedColumn" prefWidth="164.0" text="Змінено" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" prefHeight="60.0" prefWidth="170.0" text="Вихід">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="340.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
