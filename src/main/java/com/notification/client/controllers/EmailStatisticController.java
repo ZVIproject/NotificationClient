@@ -85,6 +85,7 @@ public class EmailStatisticController {
     public void openTimePerioudForm() {
         DateFilterController controller = new DateFilterController();
         controller.showDialog();
+        displayRecords();
     }
 
     public void cancel() {

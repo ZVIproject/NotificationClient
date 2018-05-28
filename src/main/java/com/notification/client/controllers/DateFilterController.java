@@ -63,7 +63,7 @@ public class DateFilterController {
         String toValue = to.getText();
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MMM.yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
         Date newToValue=null;
         Date newFromValue = null;
@@ -76,13 +76,6 @@ public class DateFilterController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-//        if (!fromValue.equals("")) {
-//            newFromValue = new Date((long) fromSlider.getValue());
-//        }
-//        if (!toValue.equals("")) {
-//            newToValue = new Date((long) toSlider.getValue());
-//        }
 
         List<Message> messages = messageDAOService.getMessagesFromTo(newFromValue.getTime(), newToValue.getTime());
 

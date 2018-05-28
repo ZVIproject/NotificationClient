@@ -93,7 +93,6 @@ public class BlackListController {
         blackListEmailsTable.getItems().clear();
         setRecordsActive();
         setRecordsBlackList();
-//TODO z
     }
 
     public void cancel() {
@@ -124,14 +123,13 @@ public class BlackListController {
         activeList.remove(changedMessages);
         activeEmailsTable.getItems().clear();
         activeEmailsTable.setItems(activeList);
-
         return  changedMessages;
     }
 
     private List<Message> getChangedBlackListed() {
         List<Message> changedMessages = new ArrayList<>();
         blackList.forEach(message -> {
-            if (message.isBlackListed().getValue().equals(true)) {
+            if (!message.isBlackListed().getValue().equals(true)) {
                 changedMessages.add(message);
             }
         });
@@ -139,7 +137,7 @@ public class BlackListController {
 
         blackList.remove(changedMessages);
         blackListEmailsTable.getItems().clear();
-        blackListEmailsTable.setItems(activeList);
+        setRecordsBlackList();
         return changedMessages;
     }
 

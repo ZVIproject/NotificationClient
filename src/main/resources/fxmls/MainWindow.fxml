@@ -31,26 +31,26 @@
                               <Insets left="10.0" top="20.0" />
                            </VBox.margin>
                         </Label>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="80.0" prefWidth="320.0">
-                     <children>
-                        <Label fx:id="usernameField" text="Ім'я користувача:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                              <Insets left = "10" top="20.0" />
-                           </VBox.margin>
-                        </Label>
+                        <VBox prefHeight="80.0" prefWidth="320.0">
+                           <children>
+                              <Label fx:id="usernameField" text="Ім'я користувача:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                    <Insets left="10" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
             </HBox>
             <Separator prefWidth="200.0">
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin></Separator>
             <Label text="Останні повідомлення:">
                <font>

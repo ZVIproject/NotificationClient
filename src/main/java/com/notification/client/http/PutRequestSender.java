@@ -15,13 +15,10 @@ import java.util.List;
 
 public class PutRequestSender {
 
-    private static final LoggerServiceImpl logger = new LoggerServiceImpl();
-
-    private HttpClient httpClient;
     private RestTemplate restTemplate;
 
+
     public PutRequestSender() {
-        httpClient = HttpClients.createDefault();
         restTemplate = new RestTemplate();
     }
 
@@ -30,7 +27,7 @@ public class PutRequestSender {
         ResponseEntity<User> returnedUser = restTemplate.exchange(
                 url,
                 HttpMethod.PUT,
-                new HttpEntity<User>(user),
+                new HttpEntity<>(user),
                 User.class
         );
         return returnedUser.getBody();
@@ -41,7 +38,7 @@ public class PutRequestSender {
         ResponseEntity<Message> returnedMessage = restTemplate.exchange(
                 url,
                 HttpMethod.PUT,
-                new HttpEntity<Message>(message),
+                new HttpEntity<>(message),
                 Message.class
         );
         return returnedMessage.getBody();
@@ -51,7 +48,7 @@ public class PutRequestSender {
         ResponseEntity<Message[]> returnedMessages = restTemplate.exchange(
                 url,
                 HttpMethod.PUT,
-                new HttpEntity<List<Message>>(messages),
+                new HttpEntity<>(messages),
                 Message[].class
         );
         return Arrays.asList(returnedMessages.getBody());
