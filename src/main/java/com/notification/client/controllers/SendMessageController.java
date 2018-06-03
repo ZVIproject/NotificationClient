@@ -5,12 +5,14 @@ import com.notification.client.components.entities.SendMailDto;
 import com.notification.client.rest.SendMessageDAOService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -39,6 +41,11 @@ public class SendMessageController {
     @FXML private TableColumn<Receiver, String> nameColumn;
     @FXML private TableColumn<Receiver, String> groupColumn;
     @FXML private TableColumn<Receiver, String> emailColumn;
+    @FXML private TableColumn<Receiver, Boolean> sendColumn;
+
+    @FXML public void initialize() {
+        sendColumn.setCellValueFactory(new PropertyValueFactory<>("sendColumn"));
+    }
 
     public SendMessageController() {
         sendMessageDAOService = new SendMessageDAOService();
@@ -54,7 +61,6 @@ public class SendMessageController {
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Надіслати повідомлення");
-            stage.setResizable(false);
             stage.show();
             this.stage = stage;
 
@@ -119,15 +125,15 @@ public class SendMessageController {
     }
 
     private String[] getReceiversEmail() {
-
         List<String> emailArray = new ArrayList<>();
 
         observableList.forEach(message -> {
-            emailArray.add(message.getEmail());
+            if (!message.isSendProperty().getValue()) {
+                emailArray.add(message.getEmail());
+            }
         });
 
         String[] e = new String[]{};
-
         return emailArray.toArray(e);
     }
 
@@ -145,6 +151,15 @@ public class SendMessageController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("name"));
         groupColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("group"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("email"));
+        sendColumn.setCellFactory(column -> new CheckBoxTableCell<>());
+        sendColumn.setCellValueFactory(cellData -> {
+            Receiver cellValue = cellData.getValue();
+            BooleanProperty property = cellValue.isSendProperty();
+            property.addListener((observable, oldValue, newValue) -> {
+                cellValue.setIsSend(newValue);
+            });
+            return property;
+        });
         receiverTable.setItems(observableList);
     }
 

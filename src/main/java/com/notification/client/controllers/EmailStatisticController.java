@@ -42,7 +42,7 @@ public class EmailStatisticController {
     @FXML private TableColumn<Message, Integer> sendCountColumn;
 
     @FXML public void initialize() {
-        selectTopActive();
+//        selectTopActive();
     }
 
     public EmailStatisticController() {
@@ -58,7 +58,6 @@ public class EmailStatisticController {
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Додати користувачів");
-            stage.setResizable(false);
             stage.show();
             this.stage = stage;
             emailStatisticController = this;

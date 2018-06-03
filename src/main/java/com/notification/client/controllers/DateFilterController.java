@@ -45,11 +45,10 @@ public class DateFilterController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/DateFilterForm.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/DateFilterForm.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Головне вікно");
-            stage.setResizable(false);
             stage.show();
 
         } catch(IOException | NullPointerException e) {

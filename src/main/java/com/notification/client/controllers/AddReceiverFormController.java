@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -31,11 +32,10 @@ public class AddReceiverFormController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/AddReceiverForm.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/AddReceiverForm.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Головне вікно");
-            stage.setResizable(false);
             stage.show();
         } catch(IOException | NullPointerException e) {
             logger.logError(e, "Exception during form loading");

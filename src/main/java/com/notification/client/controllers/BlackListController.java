@@ -40,8 +40,7 @@ public class BlackListController {
     @FXML private TableColumn<Message, Boolean> unlockColumn;
 
     @FXML public void initialize() {
-        blockColumn.setCellValueFactory(
-            new PropertyValueFactory<>("blockColumn"));
+        blockColumn.setCellValueFactory(new PropertyValueFactory<>("blockColumn"));
         setRecordsActive();
         setRecordsBlackList();
     }
@@ -55,11 +54,10 @@ public class BlackListController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/BlackListWindow.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/BlackListWindow.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Головне вікно");
-            stage.setResizable(false);
             stage.show();
             this.stage = stage;
 

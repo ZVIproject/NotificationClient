@@ -83,7 +83,6 @@ public class MainController {
 			Scene scene = new Scene(pane);
 			stage.setScene(scene);
 			stage.setTitle("Головне вікно");
-			stage.setResizable(false);
 			stage.show();
 			this.stage = stage;
 		} catch(IOException | NullPointerException e) {

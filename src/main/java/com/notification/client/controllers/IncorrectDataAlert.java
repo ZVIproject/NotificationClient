@@ -26,7 +26,6 @@ public class IncorrectDataAlert {
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Warning");
-            stage.setResizable(false);
             stage.show();
 
         } catch(IOException | NullPointerException e) {

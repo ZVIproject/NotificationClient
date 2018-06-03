@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.EmailStatisticController">
-   <center>
-      <TableView fx:id="emails" prefHeight="425.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="emailColumn" prefWidth="410.0" text="email" />
-          <TableColumn fx:id="sendCountColumn" prefWidth="292.0" text="Кількість відправлень" />
-        </columns>
-      </TableView>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.EmailStatisticController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -28,4 +21,16 @@
         </menus>
       </MenuBar>
    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="emails" prefHeight="425.0" prefWidth="600.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="emailColumn" prefWidth="410.0" text="email" />
+                <TableColumn fx:id="sendCountColumn" prefWidth="292.0" text="Кількість відправлень" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

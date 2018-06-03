@@ -33,7 +33,6 @@ public class LoginController {
 			Scene scene = new Scene(pane);
 			stage.setScene(scene);
 			stage.setTitle("Вхід");
-			stage.setResizable(false);
 			stage.show();
 			
 		} catch(IOException | NullPointerException e) {
@@ -43,27 +42,27 @@ public class LoginController {
 	}
 	
 	public void login(ActionEvent actionEvent) {		
-		String login = loginField.getText();
-		String password = passwordField.getText();
-		
-		if(login.equals("") || password.equals("")) {
-			loginField.setText("");
-			passwordField.setText("");
-			return;
-		}
-
-		User user = new User();
-		user.setUsername(login);
-		user.setPassword(password);
-
-        if ( (user = userDAOService.checkUser(user)) == null) {
-            loginField.setText("");
-            passwordField.setText("");
-            IncorrectUserAlert alert = new IncorrectUserAlert();
-            alert.showDialog();
-        }
-
-        MainController.setUser(user);
+//		String login = loginField.getText();
+//		String password = passwordField.getText();
+//
+//		if(login.equals("") || password.equals("")) {
+//			loginField.setText("");
+//			passwordField.setText("");
+//			return;
+//		}
+//
+//		User user = new User();
+//		user.setUsername(login);
+//		user.setPassword(password);
+//
+//        if ( (user = userDAOService.checkUser(user)) == null) {
+//            loginField.setText("");
+//            passwordField.setText("");
+//            IncorrectUserAlert alert = new IncorrectUserAlert();
+//            alert.showDialog();
+//        }
+//
+//        MainController.setUser(user);
 		openMainWindow();
 	}
 	

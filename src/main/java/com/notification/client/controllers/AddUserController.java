@@ -56,7 +56,6 @@ public class AddUserController {
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Додати користувачів");
-            stage.setResizable(false);
             stage.show();
             this.stage = stage;
 

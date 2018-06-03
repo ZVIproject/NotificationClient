@@ -36,11 +36,10 @@ public class RegisterController {
 		BorderPane pane;
 		
 		try {
-			pane = (BorderPane)FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/RegisterWindow.fxml"));
+			pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/RegisterWindow.fxml"));
 			Scene scene = new Scene(pane);
 			stage.setScene(scene);
 			stage.setTitle("Реєстрація");
-			stage.setResizable(false);
 			stage.show();
 			
 		} catch(IOException | NullPointerException e) {

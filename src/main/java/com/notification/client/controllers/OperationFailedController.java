@@ -22,11 +22,10 @@ public class OperationFailedController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/OperationFailed.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/OperationFailed.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Warning");
-            stage.setResizable(false);
             stage.show();
 
         } catch(IOException | NullPointerException e) {

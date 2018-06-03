@@ -1,132 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.SendMessageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notification.client.controllers.SendMessageController">
    <top>
-      <VBox prefHeight="118.0" prefWidth="771.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="99.0" prefWidth="771.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="Повідомлення">
-                  <items>
-                    <MenuItem fx:id="mailMenuItem" mnemonicParsing="false" onAction="#readFromFile" text="Зчитати з файлу" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Отримувачі">
-                  <items>
-                    <MenuItem fx:id="receiverReadFromFileMenuItem" mnemonicParsing="false" onAction="#readFromFileReceivers" text="Зчитати з файлу" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="openReceiverFormMenu" mnemonicParsing="false" onAction="#openReceiverForm" text="Відкрити форму" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <Label text="Повідомлення">
-               <font>
-                  <Font size="30.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="260.0" top="30.0" />
-               </VBox.margin>
-            </Label>
+            <VBox prefHeight="118.0" prefWidth="771.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Повідомлення">
+                        <items>
+                          <MenuItem fx:id="mailMenuItem" mnemonicParsing="false" onAction="#readFromFile" text="Зчитати з файлу" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Отримувачі">
+                        <items>
+                          <MenuItem fx:id="receiverReadFromFileMenuItem" mnemonicParsing="false" onAction="#readFromFileReceivers" text="Зчитати з файлу" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem fx:id="openReceiverFormMenu" mnemonicParsing="false" onAction="#openReceiverForm" text="Відкрити форму" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <Label text="Повідомлення">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="260.0" top="30.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </AnchorPane>
    </top>
    <center>
-      <VBox prefHeight="413.0" prefWidth="771.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <VBox prefHeight="413.0" prefWidth="771.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label text="Тема :">
-                     <HBox.margin>
-                        <Insets left="30.0" top="40.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="subjectField" prefHeight="60.0" prefWidth="580.0">
-                     <HBox.margin>
-                        <Insets bottom="20.0" left="60.0" top="20.0" />
-                     </HBox.margin>
-                  </TextArea>
+                  <AnchorPane prefHeight="87.0" prefWidth="771.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Тема :">
+                                 <HBox.margin>
+                                    <Insets left="30.0" top="40.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <TextArea fx:id="subjectField" prefHeight="60.0" prefWidth="580.0">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="60.0" top="20.0" />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="237.0" prefWidth="771.0">
+                     <children>
+                        <HBox prefHeight="255.0" prefWidth="771.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane prefHeight="237.0" prefWidth="140.0">
+                                 <children>
+                                    <Label text="Контент :">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="237.0" prefWidth="593.0">
+                                 <children>
+                                    <TextArea fx:id="contentField" prefHeight="235.0" prefWidth="580.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="70.0" prefWidth="771.0">
+                     <children>
+                        <Separator prefHeight="12.0" prefWidth="771.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <opaqueInsets>
+                              <Insets bottom="20.0" />
+                           </opaqueInsets>
+                        </Separator>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Отримувачі" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="10.0">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="20.0" />
+                     </opaqueInsets>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="254.0" prefWidth="771.0">
+                     <children>
+                        <TableView fx:id="receiverTable" prefHeight="240.0" prefWidth="771.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="nameColumn" prefWidth="265.0" text="ПІБ" />
+                            <TableColumn fx:id="groupColumn" minWidth="8.0" prefWidth="158.0" text="Група" />
+                              <TableColumn fx:id="emailColumn" prefWidth="265.0" text="Email" />
+                              <TableColumn fx:id="sendColumn" prefWidth="79.0" text="Надіслати" />
+                          </columns>
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem fx:id="deleteItem" mnemonicParsing="false" onAction="#remove" text="Видалити" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="101.0" prefWidth="771.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button fx:id="sendButton" mnemonicParsing="false" onAction="#send" prefHeight="60.0" prefWidth="170.0" text="Надіслати">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="70.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" prefHeight="60.0" prefWidth="170.0" text="Відмінити">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="280.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
                </children>
-            </HBox>
-            <HBox prefHeight="255.0" prefWidth="771.0">
-               <children>
-                  <Label text="Контент :">
-                     <HBox.margin>
-                        <Insets left="30.0" top="30.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="contentField" prefHeight="235.0" prefWidth="580.0">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="15.0" top="10.0" />
-                     </HBox.margin>
-                  </TextArea>
-               </children>
-            </HBox>
-            <Separator prefWidth="200.0">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </Separator>
-            <Label text="Отримувачі">
-               <font>
-                  <Font size="30.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="290.0" top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TableView fx:id="receiverTable" prefHeight="240.0" prefWidth="771.0">
-              <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="265.0" text="ПІБ" />
-                <TableColumn fx:id="groupColumn" minWidth="8.0" prefWidth="201.0" text="Група" />
-                  <TableColumn fx:id="emailColumn" prefWidth="263.0" text="Email" />
-              </columns>
-               <VBox.margin>
-                  <Insets left="20.0" right="20.0" top="10.0" />
-               </VBox.margin>
-               <contextMenu>
-                  <ContextMenu>
-                    <items>
-                      <MenuItem fx:id="deleteItem" mnemonicParsing="false" onAction="#remove" text="Видалити" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu>
-            </TableView>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#send" prefHeight="60.0" prefWidth="170.0" text="Надіслати">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="70.0" top="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" prefHeight="60.0" prefWidth="170.0" text="Відмінити">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="280.0" top="20.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+            </VBox>
          </children>
-      </VBox>
+      </AnchorPane>
    </center>
 </BorderPane>

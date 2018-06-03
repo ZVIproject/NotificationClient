@@ -36,7 +36,6 @@ public class AddUserFormController {
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Головне вікно");
-            stage.setResizable(false);
             stage.show();
         } catch(IOException | NullPointerException e) {
             logger.logError(e, "Exception during form loading");
