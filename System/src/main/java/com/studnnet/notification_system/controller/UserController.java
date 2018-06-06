@@ -26,6 +26,7 @@ public class UserController {
 
     @PutMapping("/")
     public UserEntity createUser(@RequestBody UserEntity userEntity){
+        //TODO z: add functionality for check user in the database and then save it if exist
         return userRepository.save(userEntity);
     }
 

@@ -1,14 +1,16 @@
 package com.studnnet.notification_system.component.entity;
 
 import com.studnnet.notification_system.utils.enums.MailStatus;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "message", schema = "notification_system")
-public class MessageEntity {
+@Table(name = "resend_message", schema = "notification_system")
+public class ResendEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +21,11 @@ public class MessageEntity {
     private String email;
 
 
-    @Column(name = "send_count")
-    private Integer sendCount;
+    @Column(name = "subject")
+    private String subject;
+
+    @Column(name = "text")
+    private String text;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
@@ -39,11 +44,16 @@ public class MessageEntity {
     private UserEntity userEntity;
 
 
+
+    @Override public String toString() {
+        return "ToStringExample(" + this.getId() + ", " + this.getEmail()+ ", " + this.getStatus()+ ", " + this.getText() + ")";
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public MessageEntity setId(Integer id) {
+    public ResendEntity setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -52,17 +62,8 @@ public class MessageEntity {
         return email;
     }
 
-    public MessageEntity setEmail(String email) {
+    public ResendEntity setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public Integer getSendCount() {
-        return sendCount;
-    }
-
-    public MessageEntity setSendCount(Integer sendCount) {
-        this.sendCount = sendCount;
         return this;
     }
 
@@ -70,7 +71,7 @@ public class MessageEntity {
         return status;
     }
 
-    public MessageEntity setStatus(MailStatus status) {
+    public ResendEntity setStatus(MailStatus status) {
         this.status = status;
         return this;
     }
@@ -79,7 +80,7 @@ public class MessageEntity {
         return created;
     }
 
-    public MessageEntity setCreated(Date created) {
+    public ResendEntity setCreated(Date created) {
         this.created = created;
         return this;
     }
@@ -88,7 +89,7 @@ public class MessageEntity {
         return modified;
     }
 
-    public MessageEntity setModified(Date modified) {
+    public ResendEntity setModified(Date modified) {
         this.modified = modified;
         return this;
     }
@@ -97,8 +98,26 @@ public class MessageEntity {
         return userEntity;
     }
 
-    public MessageEntity setUserEntity(UserEntity userEntity) {
+    public ResendEntity setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+        return this;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public ResendEntity setSubject(String subject) {
+        this.subject = subject;
+        return this;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public ResendEntity setText(String text) {
+        this.text = text;
         return this;
     }
 }

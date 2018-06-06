@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "user", schema = "notification_system")
+@Table(name = "user_data", schema = "notification_system")
 @Data
 public class UserEntity {
 

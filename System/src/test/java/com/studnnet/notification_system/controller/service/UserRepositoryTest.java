@@ -1,6 +1,8 @@
-package com.studnnet.notification_system.component.repositories;
+package com.studnnet.notification_system.controller.service;
 
 import com.studnnet.notification_system.component.entity.UserEntity;
+import com.studnnet.notification_system.component.repositories.UserRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@ActiveProfiles("test")
 public class UserRepositoryTest {
 
     private UserEntity testUser;

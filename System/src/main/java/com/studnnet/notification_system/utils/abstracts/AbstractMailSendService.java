@@ -2,7 +2,9 @@ package com.studnnet.notification_system.utils.abstracts;
 
 import com.studnnet.notification_system.component.dto.SendMailDto;
 import com.studnnet.notification_system.component.entity.MessageEntity;
+import com.studnnet.notification_system.component.entity.ResendEntity;
 import com.studnnet.notification_system.component.repositories.MessageRepository;
+import com.studnnet.notification_system.component.repositories.ResendRepository;
 import com.studnnet.notification_system.component.repositories.StatisticRepository;
 import com.studnnet.notification_system.component.repositories.UserRepository;
 import com.studnnet.notification_system.configuration.EmailProperties;
@@ -13,13 +15,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;
@@ -28,7 +27,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Service
-@PropertySource(value = "classpath:application.properties")
+//@PropertySource(value = "classpath:application.properties")
 public abstract class AbstractMailSendService implements MailSendService, Runnable {
 
     private static final Logger LOGGER = Logger.getLogger(AbstractMailSendService.class);
@@ -37,6 +36,7 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
 
     @Autowired protected EmailProperties emailProperties;
     @Autowired private MessageRepository messageRepository;
+    @Autowired private ResendRepository resendRepository;
     @Autowired private UserRepository userRepository;
     @Autowired private StatisticRepository statisticRepository;
     @Autowired private EntityManager entityManager;
@@ -143,54 +143,55 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
               }
             }
 
-            try {
+            doNormalSendMessage(message, storedMessage, emailForSend);
 
-                message.setTo(emailForSend);
-
-                message.setSubject(sendMailDto.getSubject());
-                message.setText(sendMailDto.getText());
-
-               storedMessage.setStatus(MailStatus.SENDED);
-                storedMessage.setSendCount(storedMessage.getSendCount()+1);
-
-                messageRepository.save(storedMessage);
-
-                mailSender.send(message);
-
-                sendCount++;
-
-            } catch (MailException e) {
-                loggingError("fail to send message to "+ emailForSend, null);
-
-                try {
-                    message.setTo(emailForSend);
-
-                    message.setSubject(sendMailDto.getSubject());
-                    message.setText(sendMailDto.getText());
-
-                    mailSender.send(message);
-                    sendCount++;
-                }catch (MailException e1){
-                    loggingError("error message to "+ emailForSend, null);
-                    storedMessage.setStatus(MailStatus.FAIL);
-                    messageRepository.save(storedMessage);
-
-                    loggingError("Failed to send", e);
-
-                    failedCount++;
-                }
 
 
 
             }
-        }
-
-
-        loggingSentEmails(message.getTo());
 
        // addSendCount();
 
         return message;
+    }
+
+    private void doNormalSendMessage(SimpleMailMessage message, MessageEntity storedMessage, String emailForSend) {
+        try {
+            message.setTo(emailForSend);
+            message.setSubject(sendMailDto.getSubject());
+            message.setText(sendMailDto.getText());
+
+            mailSender.send(message);
+
+
+            storedMessage.setStatus(MailStatus.SENDED);
+            storedMessage.setSendCount(storedMessage.getSendCount() + 1);
+
+            messageRepository.save(storedMessage);
+
+
+            sendCount++;
+
+        } catch (MailException e) {
+            loggingError("fail to send message to " + emailForSend, e);
+
+            loggingSentEmails(message.getTo());
+
+            if(resendRepository.findByEmail(emailForSend) != null){
+                return;
+            }
+
+            resendRepository.save(new ResendEntity()
+                .setEmail(emailForSend)
+                .setStatus(MailStatus.NEW)
+                .setUserEntity(
+                    userRepository.findOne(sendMailDto.getUserId())
+                )
+                .setText(sendMailDto.getText())
+                .setSubject(sendMailDto.getSubject())
+            );
+        }
+
     }
 
     public void addSendCount(){
@@ -212,7 +213,7 @@ public abstract class AbstractMailSendService implements MailSendService, Runnab
     }
 
     private void loggingError(String errorPlace, Exception e) {
-        LOGGER.error(String.format(":********************************: %s", errorPlace));
+        LOGGER.info(String.format(":********************************: %s \n %s", errorPlace, e.getMessage()));
     }
 
 }

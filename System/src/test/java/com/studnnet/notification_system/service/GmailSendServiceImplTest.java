@@ -2,6 +2,10 @@ package com.studnnet.notification_system.service;
 
 import com.studnnet.notification_system.MailApplication;
 import com.studnnet.notification_system.component.dto.SendMailDto;
+import com.studnnet.notification_system.component.entity.ResendEntity;
+import com.studnnet.notification_system.component.entity.UserEntity;
+import com.studnnet.notification_system.component.repositories.ResendRepository;
+import com.studnnet.notification_system.component.repositories.UserRepository;
 import com.studnnet.notification_system.utils.Const;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,11 +21,17 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MailApplication.class)
-@PropertySource(value = "classpath:test.properties")
+@PropertySource(value = "classpath:application-test.properties")
 public class GmailSendServiceImplTest {
 
     @Autowired
     private MailSendServiceDispatcher dispatcher;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ResendRepository resendRepository;
 
     private SendMailDto sendMailDto;
 
@@ -30,11 +40,12 @@ public class GmailSendServiceImplTest {
 
     @Before
     public void initialization() {
-        final String[] receiversEmails = {"zarovniy16@mail.ru", "zarovni03@gmail.com", "zarovniy15@mail.ru", "zarovniy229@mail.ru"};
+        final String[] receiversEmails = {"zarovniy03mail.com"};
         final String emailText = "Hello world!!!";
         final String emailSubject = "test";
 
-        this.sendMailDto = new SendMailDto(receiversEmails, emailText, emailSubject, 1);
+
+        this.sendMailDto = new SendMailDto(receiversEmails, emailText, emailSubject, createUser().getId());
     }
 
     @Test
@@ -45,9 +56,13 @@ public class GmailSendServiceImplTest {
     }
 
     @Test
-    public void sendSimpleMessageFailedIfMessageDataIsNotEquals() throws Exception {
+    public void sendSimpleMessageFailedIfMessageDataIsNotEquals(){
 
         SimpleMailMessage testMailMessage = dispatcher.get(Const.GMAIL).sendSimpleMessage(sendMailDto);
+
+        for (ResendEntity resendEntity : resendRepository.findAll()) {
+            System.out.println(resendEntity.toString());
+        }
 
       //  checkResponseMail(testMailMessage, true);
     }
@@ -65,8 +80,14 @@ public class GmailSendServiceImplTest {
             assertEquals("Text of message should be equal", testMailMessage.getText(), sendMailDto.getText());
         }
 
-        assertEquals("Receiver's email should be equal", testMailMessage.getTo()[0], sendMailDto.getTo());
-        assertEquals("The subject text should be equal", testMailMessage.getSubject(), sendMailDto.getSubject());
+    }
+
+    private UserEntity createUser() {
+        UserEntity testUser = new UserEntity();
+        testUser.setUsername("testUsername");
+        testUser.setPassword("testPassword");
+
+        return userRepository.save(testUser);
     }
 
 }

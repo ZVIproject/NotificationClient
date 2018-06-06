@@ -4,6 +4,7 @@ import com.studnnet.notification_system.MailApplication;
 import com.studnnet.notification_system.component.dto.SendMailDto;
 import com.studnnet.notification_system.utils.Const;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 @Deprecated
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = MailApplication.class)
+@Ignore
 public class AmazonSendServiceImplTest {
 
     @Autowired
