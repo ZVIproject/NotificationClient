@@ -6,11 +6,11 @@ import com.notification.client.http.GetRequestSender;
 
 import java.util.List;
 
-public class StatisticDAOService {
+public class StatisticRemoteService {
 
     private GetRequestSender getRequestSender;
 
-    public StatisticDAOService() {
+    public StatisticRemoteService() {
         getRequestSender = new GetRequestSender();
     }
 

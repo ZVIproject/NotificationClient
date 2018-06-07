@@ -13,7 +13,6 @@ import java.io.IOException;
 
 public class OperationFailedController {
 
-    @FXML private Label findThisLabel;
     @FXML private Button button;
 
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();

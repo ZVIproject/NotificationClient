@@ -8,13 +8,13 @@ import com.notification.client.http.PutRequestSender;
 
 import java.util.List;
 
-public class UserDAOService {
+public class UserRemoteService {
 
     private GetRequestSender getRequestSender;
     private PostRequestSender postRequestSender;
     private PutRequestSender putRequestSender;
 
-    public UserDAOService() {
+    public UserRemoteService() {
         getRequestSender = new GetRequestSender();
         postRequestSender = new PostRequestSender();
         putRequestSender = new PutRequestSender();

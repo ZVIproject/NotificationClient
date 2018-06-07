@@ -1,7 +1,7 @@
 package com.notification.client.controllers;
 
 import com.notification.client.components.entities.Message;
-import com.notification.client.rest.MessageDAOService;
+import com.notification.client.rest.MessageRemoteService;
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
@@ -14,7 +14,6 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -26,7 +25,7 @@ import java.util.stream.Collectors;
 public class BlackListController {
 
     private LoggerServiceImpl logger;
-    private MessageDAOService messageDAOService;
+    private MessageRemoteService messageDAOService;
     private Stage stage;
 
     private ObservableList<Message> activeList = FXCollections.observableArrayList();
@@ -47,7 +46,7 @@ public class BlackListController {
 
     public BlackListController() {
         logger = new LoggerServiceImpl();
-        messageDAOService = new MessageDAOService();
+        messageDAOService = new MessageRemoteService();
     }
 
     public void showDialog() {
@@ -158,7 +157,7 @@ public class BlackListController {
     }
 
     private void displayRecordsActive() {
-        activeEmails.setCellValueFactory(new PropertyValueFactory<Message, String>("email"));
+        activeEmails.setCellValueFactory(new PropertyValueFactory<>("email"));
         blockColumn.setCellFactory(column -> new CheckBoxTableCell<>());
         blockColumn.setCellValueFactory(cellData -> {
             Message cellValue = cellData.getValue();
@@ -172,7 +171,7 @@ public class BlackListController {
     }
 
     private void displayRecordsBlackList() {
-        blackListedEmails.setCellValueFactory(new PropertyValueFactory<Message, String>("email"));
+        blackListedEmails.setCellValueFactory(new PropertyValueFactory<>("email"));
         unlockColumn.setCellFactory(column -> new CheckBoxTableCell<>());
         unlockColumn.setCellValueFactory(cellData -> {
             Message cellValue = cellData.getValue();

@@ -1,12 +1,11 @@
 package com.notification.client.controllers;
 
 import com.notification.client.components.entities.Message;
-import com.notification.client.rest.MessageDAOService;
+import com.notification.client.rest.MessageRemoteService;
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -23,14 +22,12 @@ import java.util.List;
 public class DateFilterController {
 
     private LoggerServiceImpl logger;
-    private MessageDAOService messageDAOService;
+    private MessageRemoteService messageDAOService;
 
     @FXML private TextField from;
     @FXML private TextField to;
     @FXML private Slider toSlider;
     @FXML private Slider fromSlider;
-    @FXML private Button confirmButton;
-    @FXML private Button clearButton;
 
     @FXML public void initialize() {
         init();
@@ -38,7 +35,7 @@ public class DateFilterController {
 
     public DateFilterController() {
         logger = new LoggerServiceImpl();
-        messageDAOService = new MessageDAOService();
+        messageDAOService = new MessageRemoteService();
     }
 
     public void showDialog() {
@@ -115,10 +112,6 @@ public class DateFilterController {
     private String getString(Date value) {
         Format formater = new SimpleDateFormat("dd.MMMM.yyyy, hh:mm:ss");
         return formater.format(value);
-    }
-
-    private List<Message> getActiveMessages(Date from, Date to) {
-        return messageDAOService.getMessagesFromTo(from.getTime(), to.getTime());
     }
 
 }

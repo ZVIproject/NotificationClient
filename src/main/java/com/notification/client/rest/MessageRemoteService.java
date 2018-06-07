@@ -9,13 +9,13 @@ import com.notification.client.http.PutRequestSender;
 import java.util.Date;
 import java.util.List;
 
-public class MessageDAOService {
+public class MessageRemoteService {
 
     private GetRequestSender getRequestSender;
     private PostRequestSender postRequestSender;
     private PutRequestSender putRequestSender;
 
-    public MessageDAOService() {
+    public MessageRemoteService() {
         getRequestSender = new GetRequestSender();
         postRequestSender = new PostRequestSender();
         putRequestSender = new PutRequestSender();

@@ -2,11 +2,11 @@ package com.notification.client.controllers;
 
 import java.io.IOException;
 
-import com.notification.client.rest.UserDAOService;
+import com.notification.client.rest.UserRemoteService;
 import com.notification.client.components.entities.User;
-import com.notification.client.interfaces.LoggerService;
 import com.notification.client.services.LoggerServiceImpl;
 
+import com.notification.client.services.dao.UserDAOServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,10 +25,12 @@ public class RegisterController {
     @FXML private TextField loginField;
     @FXML private TextField passwordField;
 
-    private UserDAOService userDAOService;
+    private UserDAOServiceImpl userDAOService;
+    private UserRemoteService userRemoteService;
 
 	public RegisterController() {
-        userDAOService = new UserDAOService();
+		userDAOService = new UserDAOServiceImpl();
+		userRemoteService = new UserRemoteService();
 	}
 	
 	public void showDialog() {
@@ -68,7 +70,7 @@ public class RegisterController {
 		user.setUsername(username);
 		user.setPassword(password);
 		
-		User returnedUser = userDAOService.createUser(user);
+		User returnedUser = userRemoteService.createUser(user);
 
 		if (returnedUser == null) {
 			return;

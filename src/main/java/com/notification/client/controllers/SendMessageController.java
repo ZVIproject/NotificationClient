@@ -2,7 +2,7 @@ package com.notification.client.controllers;
 
 import com.notification.client.components.entities.Receiver;
 import com.notification.client.components.entities.SendMailDto;
-import com.notification.client.rest.SendMessageDAOService;
+import com.notification.client.rest.SendMessageRemoteService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
 import javafx.beans.property.BooleanProperty;
@@ -28,7 +28,7 @@ public class SendMessageController {
 
     public static SendMessageController currentController;
 
-    private SendMessageDAOService sendMessageDAOService;
+    private SendMessageRemoteService sendMessageDAOService;
     private XLSFileParserImpl parser;
     private Stage stage;
 
@@ -48,7 +48,7 @@ public class SendMessageController {
     }
 
     public SendMessageController() {
-        sendMessageDAOService = new SendMessageDAOService();
+        sendMessageDAOService = new SendMessageRemoteService();
         parser = new XLSFileParserImpl();
         currentController = this;
     }

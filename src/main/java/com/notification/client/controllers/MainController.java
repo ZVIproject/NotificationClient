@@ -3,8 +3,8 @@ package com.notification.client.controllers;
 import com.notification.client.components.entities.MainStatistic;
 import com.notification.client.components.entities.Message;
 import com.notification.client.components.entities.User;
-import com.notification.client.rest.MessageDAOService;
-import com.notification.client.rest.UserDAOService;
+import com.notification.client.rest.MessageRemoteService;
+import com.notification.client.rest.UserRemoteService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
 import com.notification.client.utils.enums.MailStatus;
@@ -31,11 +31,9 @@ public class MainController {
 	private static User user;
 	
 	private LoggerServiceImpl logger;
-	private XLSFileParserImpl parser;
-	private Stage stage;
 
-	private UserDAOService userDAOService;
-	private MessageDAOService messageDAOService;
+	private UserRemoteService userDAOService;
+	private MessageRemoteService messageDAOService;
 
 	private ObservableList<MainStatistic> mainStatistics = FXCollections.observableArrayList();
 
@@ -69,22 +67,20 @@ public class MainController {
 	}
 	
 	public MainController() {
-		parser = new XLSFileParserImpl();
 		logger = new LoggerServiceImpl();
-		userDAOService = new UserDAOService();
-		messageDAOService = new MessageDAOService();
+		userDAOService = new UserRemoteService();
+		messageDAOService = new MessageRemoteService();
 	}	
 	
 	public void showDialog() {
 		Stage stage = new Stage();
 		BorderPane pane;
 		try {
-			pane = (BorderPane)FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/MainWindow.fxml"));
+			pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/MainWindow.fxml"));
 			Scene scene = new Scene(pane);
 			stage.setScene(scene);
 			stage.setTitle("Головне вікно");
 			stage.show();
-			this.stage = stage;
 		} catch(IOException | NullPointerException e) {
 			logger.logError(e, "Exception during form loading");
 			throw new RuntimeException(e);

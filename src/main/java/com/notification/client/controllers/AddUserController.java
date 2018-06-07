@@ -1,7 +1,7 @@
 package com.notification.client.controllers;
 
 import com.notification.client.components.entities.User;
-import com.notification.client.rest.UserDAOService;
+import com.notification.client.rest.UserRemoteService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
 import javafx.collections.FXCollections;
@@ -26,7 +26,7 @@ public class AddUserController {
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
     public static AddUserController currentController;
 
-    private UserDAOService userDAOService;
+    private UserRemoteService userDAOService;
     private XLSFileParserImpl parser;
     private Stage stage;
 
@@ -43,7 +43,7 @@ public class AddUserController {
 
 
     public AddUserController() {
-        userDAOService = new UserDAOService();
+        userDAOService = new UserRemoteService();
         parser = new XLSFileParserImpl();
         currentController = this;
     }

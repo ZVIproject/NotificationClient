@@ -4,11 +4,11 @@ import com.notification.client.components.entities.SendMailDto;
 import com.notification.client.configs.Urls;
 import com.notification.client.http.PostRequestSender;
 
-public class SendMessageDAOService {
+public class SendMessageRemoteService {
 
     private PostRequestSender postRequestSender;
 
-    public SendMessageDAOService() {
+    public SendMessageRemoteService() {
         this.postRequestSender = new PostRequestSender();
     }
 

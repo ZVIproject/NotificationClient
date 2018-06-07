@@ -1,25 +1,18 @@
 package com.notification.client.controllers;
 
 import com.notification.client.components.entities.Message;
-import com.notification.client.components.entities.Statistic;
-import com.notification.client.components.entities.User;
-import com.notification.client.rest.MessageDAOService;
-import com.notification.client.rest.StatisticDAOService;
-import com.notification.client.rest.UserDAOService;
+import com.notification.client.rest.MessageRemoteService;
 import com.notification.client.services.LoggerServiceImpl;
-import com.notification.client.services.XLSFileParserImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
 
 import java.io.IOException;
 import java.util.Date;
@@ -32,7 +25,7 @@ public class EmailStatisticController {
     public static EmailStatisticController emailStatisticController;
 
     private LoggerServiceImpl logger;
-    private MessageDAOService messageDAOService;
+    private MessageRemoteService messageDAOService;
     private Stage stage;
 
     private ObservableList<Message> observableList = FXCollections.observableArrayList();
@@ -47,7 +40,7 @@ public class EmailStatisticController {
 
     public EmailStatisticController() {
         logger = new LoggerServiceImpl();
-        messageDAOService = new MessageDAOService();
+        messageDAOService = new MessageRemoteService();
     }
 
     public void showDialog() {
