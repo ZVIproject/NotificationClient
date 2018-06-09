@@ -8,13 +8,13 @@ import com.notification.client.http.PutRequestSender;
 
 import java.util.List;
 
-public class UserRemoteService {
+public class UserService {
 
     private GetRequestSender getRequestSender;
     private PostRequestSender postRequestSender;
     private PutRequestSender putRequestSender;
 
-    public UserRemoteService() {
+    public UserService() {
         getRequestSender = new GetRequestSender();
         postRequestSender = new PostRequestSender();
         putRequestSender = new PutRequestSender();

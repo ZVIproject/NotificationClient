@@ -1,6 +1,7 @@
 package com.notification.client.configs;
 
 public class Urls {
+
     private static final String HOST = "http://localhost";
     private static final String PORT = "8080";
 

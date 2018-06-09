@@ -4,9 +4,8 @@ import com.notification.client.components.entities.MainStatistic;
 import com.notification.client.components.entities.Message;
 import com.notification.client.components.entities.User;
 import com.notification.client.rest.MessageRemoteService;
-import com.notification.client.rest.UserRemoteService;
+import com.notification.client.rest.UserService;
 import com.notification.client.services.LoggerServiceImpl;
-import com.notification.client.services.XLSFileParserImpl;
 import com.notification.client.utils.enums.MailStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,7 +31,7 @@ public class MainController {
 	
 	private LoggerServiceImpl logger;
 
-	private UserRemoteService userDAOService;
+	private UserService userDAOService;
 	private MessageRemoteService messageDAOService;
 
 	private ObservableList<MainStatistic> mainStatistics = FXCollections.observableArrayList();
@@ -68,7 +67,7 @@ public class MainController {
 	
 	public MainController() {
 		logger = new LoggerServiceImpl();
-		userDAOService = new UserRemoteService();
+		userDAOService = new UserService();
 		messageDAOService = new MessageRemoteService();
 	}	
 	

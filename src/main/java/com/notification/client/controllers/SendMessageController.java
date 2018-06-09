@@ -57,7 +57,7 @@ public class SendMessageController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/SendMessageWindow.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/SendMessageWindow.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Надіслати повідомлення");
@@ -148,9 +148,9 @@ public class SendMessageController {
     }
 
     private void displayRecords() {
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("name"));
-        groupColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("group"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<Receiver, String>("email"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        groupColumn.setCellValueFactory(new PropertyValueFactory<>("group"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         sendColumn.setCellFactory(column -> new CheckBoxTableCell<>());
         sendColumn.setCellValueFactory(cellData -> {
             Receiver cellValue = cellData.getValue();

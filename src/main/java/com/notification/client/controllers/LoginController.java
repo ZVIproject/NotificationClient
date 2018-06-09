@@ -2,7 +2,7 @@ package com.notification.client.controllers;
 
 import java.io.IOException;
 
-import com.notification.client.rest.UserRemoteService;
+import com.notification.client.rest.UserService;
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +22,7 @@ public class LoginController {
 	@FXML private TextField loginField;	
 	@FXML private PasswordField passwordField;
 
-	private UserRemoteService userDAOService = new UserRemoteService();
+	private UserService userDAOService = new UserService();
 	
 	public void showDialog() {
 		Stage stage = new Stage();
