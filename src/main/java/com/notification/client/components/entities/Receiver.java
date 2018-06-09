@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class Receiver {
 
+    private Long id;
     private String name;
     private String group;
     private String email;
@@ -16,6 +17,14 @@ public class Receiver {
         this.name = name;
         this.group = group;
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

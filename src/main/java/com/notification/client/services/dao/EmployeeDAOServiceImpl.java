@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+
 public class EmployeeDAOServiceImpl implements EmployeeDAOService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmployeeDAOServiceImpl.class);
@@ -19,6 +20,9 @@ public class EmployeeDAOServiceImpl implements EmployeeDAOService {
 
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QUERY_FIND_BY_FIRST_NAME_AND_LAST_NAME);
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();

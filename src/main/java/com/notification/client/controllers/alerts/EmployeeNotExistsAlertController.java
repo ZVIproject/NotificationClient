@@ -1,28 +1,26 @@
-package com.notification.client.controllers;
+package com.notification.client.controllers.alerts;
 
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class IncorrectDataAlert {
-
-    @FXML private Label findThisLabel;
-    @FXML private Button button;
+public class EmployeeNotExistsAlertController {
 
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+
+    @FXML private Button button;
 
     public void showDialog() {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/IncorrectDataWindow.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/EmployeeNotExistsAlert.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Warning");

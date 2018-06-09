@@ -2,9 +2,11 @@ package com.notification.client.controllers;
 
 import com.notification.client.components.entities.Receiver;
 import com.notification.client.components.entities.SendMailDto;
+import com.notification.client.controllers.alerts.IncorrectDataAlert;
 import com.notification.client.rest.SendMessageRemoteService;
 import com.notification.client.services.LoggerServiceImpl;
 import com.notification.client.services.XLSFileParserImpl;
+import com.notification.client.services.dao.StudentsDAOServiceImpl;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,7 @@ public class SendMessageController {
     public static SendMessageController currentController;
 
     private SendMessageRemoteService sendMessageDAOService;
+    private StudentsDAOServiceImpl studentsDAOService;
     private XLSFileParserImpl parser;
     private Stage stage;
 
@@ -45,10 +48,12 @@ public class SendMessageController {
 
     @FXML public void initialize() {
         sendColumn.setCellValueFactory(new PropertyValueFactory<>("sendColumn"));
+        observableList.addAll(studentsDAOService.getStudentsOfGivenTeacher(MainController.getUser()));
     }
 
     public SendMessageController() {
         sendMessageDAOService = new SendMessageRemoteService();
+        studentsDAOService = new StudentsDAOServiceImpl();
         parser = new XLSFileParserImpl();
         currentController = this;
     }

@@ -1,4 +1,4 @@
-package com.notification.client.controllers;
+package com.notification.client.controllers.alerts;
 
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.fxml.FXML;
@@ -13,10 +13,9 @@ import java.io.IOException;
 
 public class IncorrectUserAlert {
 
-    @FXML private Label findThisLabel;
-    @FXML private Button button;
-
     private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+
+    @FXML private Button button;
 
     public void showDialog() {
         Stage stage = new Stage();

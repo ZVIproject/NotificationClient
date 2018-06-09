@@ -2,6 +2,8 @@ package com.notification.client.controllers;
 
 import java.io.IOException;
 
+import com.notification.client.components.entities.Employee;
+import com.notification.client.controllers.alerts.EmployeeNotExistsAlertController;
 import com.notification.client.rest.UserService;
 import com.notification.client.components.entities.User;
 import com.notification.client.services.LoggerServiceImpl;
@@ -25,11 +27,11 @@ public class RegisterController {
     @FXML private TextField loginField;
     @FXML private TextField passwordField;
 
-    private EmployeeDAOServiceImpl userDAOService;
+    private EmployeeDAOServiceImpl employeeDAOService;
     private UserService userRemoteService;
 
 	public RegisterController() {
-		userDAOService = new EmployeeDAOServiceImpl();
+		employeeDAOService = new EmployeeDAOServiceImpl();
 		userRemoteService = new UserService();
 	}
 	
@@ -63,15 +65,21 @@ public class RegisterController {
 			passwordField.setText("");
 			return;			
 		}
-		
+
+		Employee employee = employeeDAOService.getUserByFirstAndLastNames(firstName, lastName);
+		if (employee == null) {
+			EmployeeNotExistsAlertController alert = new EmployeeNotExistsAlertController();
+			alert.showDialog();
+			return;
+		}
+
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setUsername(username);
 		user.setPassword(password);
-		
-		User returnedUser = userRemoteService.createUser(user);
 
+		User returnedUser = userRemoteService.createUser(user);
 		if (returnedUser == null) {
 			return;
 		}
