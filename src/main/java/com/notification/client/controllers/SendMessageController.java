@@ -49,6 +49,7 @@ public class SendMessageController {
     @FXML public void initialize() {
         sendColumn.setCellValueFactory(new PropertyValueFactory<>("sendColumn"));
         observableList.addAll(studentsDAOService.getStudentsOfGivenTeacher(MainController.getUser()));
+        displayRecords();
     }
 
     public SendMessageController() {
@@ -133,7 +134,7 @@ public class SendMessageController {
         List<String> emailArray = new ArrayList<>();
 
         observableList.forEach(message -> {
-            if (!message.isSendProperty().getValue()) {
+            if (message.isSendProperty().getValue()) {
                 emailArray.add(message.getEmail());
             }
         });
@@ -166,6 +167,14 @@ public class SendMessageController {
             return property;
         });
         receiverTable.setItems(observableList);
+    }
+
+    @FXML
+    public void changeStatus(TableColumn.CellEditEvent<?,?> event) {
+        TablePosition<?,?> position = event.getTablePosition();
+        int row = position.getRow();
+        Receiver selectedItem = receiverTable.getSelectionModel().getSelectedItem();
+        selectedItem.setIsSend(true);
     }
 
     private void closeCurrentWindow() {

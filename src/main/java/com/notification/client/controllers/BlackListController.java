@@ -131,7 +131,6 @@ public class BlackListController {
             }
         });
 
-
         blackList.remove(changedMessages);
         blackListEmailsTable.getItems().clear();
         setRecordsBlackList();

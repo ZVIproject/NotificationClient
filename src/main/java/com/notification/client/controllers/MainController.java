@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 
 public class MainController {
 	
+	private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+
 	private static User user;
-	
-	private LoggerServiceImpl logger;
 
 	private UserService userDAOService;
 	private MessageRemoteService messageDAOService;
@@ -66,7 +66,6 @@ public class MainController {
 	}
 	
 	public MainController() {
-		logger = new LoggerServiceImpl();
 		userDAOService = new UserService();
 		messageDAOService = new MessageRemoteService();
 	}	

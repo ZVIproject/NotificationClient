@@ -123,12 +123,12 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="254.0" prefWidth="771.0">
                      <children>
-                        <TableView fx:id="receiverTable" prefHeight="240.0" prefWidth="771.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="receiverTable" editable="true" prefHeight="240.0" prefWidth="771.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="nameColumn" prefWidth="265.0" text="ПІБ" />
                             <TableColumn fx:id="groupColumn" minWidth="8.0" prefWidth="158.0" text="Група" />
                               <TableColumn fx:id="emailColumn" prefWidth="265.0" text="Email" />
-                              <TableColumn fx:id="sendColumn" prefWidth="79.0" text="Надіслати" />
+                              <TableColumn fx:id="sendColumn" onEditCommit="#changeStatus" prefWidth="79.0" text="Надіслати" />
                           </columns>
                            <contextMenu>
                               <ContextMenu>

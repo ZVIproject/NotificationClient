@@ -6,7 +6,6 @@ import com.notification.client.components.entities.Employee;
 import com.notification.client.controllers.alerts.EmployeeNotExistsAlertController;
 import com.notification.client.rest.UserService;
 import com.notification.client.components.entities.User;
-import com.notification.client.services.LoggerServiceImpl;
 
 import com.notification.client.services.dao.EmployeeDAOServiceImpl;
 import javafx.fxml.FXML;
@@ -16,10 +15,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RegisterController {
 
-    private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+    private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     @FXML private Button cancelButton;
     @FXML private TextField firstNameField;
@@ -47,7 +48,7 @@ public class RegisterController {
 			stage.show();
 			
 		} catch(IOException | NullPointerException e) {
-			logger.logError(e, "Exception during register form opening");
+			logger.error("Exception during register form opening", e);
 			throw new RuntimeException(e);
 		}
 	}

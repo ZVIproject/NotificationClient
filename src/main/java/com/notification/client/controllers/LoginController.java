@@ -2,6 +2,8 @@ package com.notification.client.controllers;
 
 import java.io.IOException;
 
+import com.notification.client.components.entities.User;
+import com.notification.client.controllers.alerts.IncorrectUserAlert;
 import com.notification.client.rest.UserService;
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.event.ActionEvent;
@@ -28,7 +30,7 @@ public class LoginController {
 		Stage stage = new Stage();
 		BorderPane pane;
 		try {
-			pane = (BorderPane)FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/LoginWindow.fxml"));
+			pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/LoginWindow.fxml"));
 			Scene scene = new Scene(pane);
 			stage.setScene(scene);
 			stage.setTitle("Вхід");
@@ -40,28 +42,28 @@ public class LoginController {
 		}
 	}
 	
-	public void login(ActionEvent actionEvent) {		
-//		String login = loginField.getText();
-//		String password = passwordField.getText();
-//
-//		if(login.equals("") || password.equals("")) {
-//			loginField.setText("");
-//			passwordField.setText("");
-//			return;
-//		}
-//
-//		User user = new User();
-//		user.setUsername(login);
-//		user.setPassword(password);
-//
-//        if ( (user = userDAOService.checkUser(user)) == null) {
-//            loginField.setText("");
-//            passwordField.setText("");
-//            IncorrectUserAlert alert = new IncorrectUserAlert();
-//            alert.showDialog();
-//        }
-//
-//        MainController.setUser(user);
+	public void login() {
+		String login = loginField.getText();
+		String password = passwordField.getText();
+
+		if(login.equals("") || password.equals("")) {
+			loginField.setText("");
+			passwordField.setText("");
+			return;
+		}
+
+		User user = new User();
+		user.setUsername(login);
+		user.setPassword(password);
+
+        if ( (user = userDAOService.checkUser(user)) == null) {
+            loginField.setText("");
+            passwordField.setText("");
+            IncorrectUserAlert alert = new IncorrectUserAlert();
+            alert.showDialog();
+        }
+
+        MainController.setUser(user);
 		openMainWindow();
 	}
 	
