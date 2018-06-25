@@ -58,14 +58,12 @@ public class DateFilterController {
         String fromValue = from.getText();
         String toValue = to.getText();
 
-
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
-        Date newToValue=null;
+        Date newToValue = null;
         Date newFromValue = null;
 
         try {
-
             newFromValue = formatter.parse(fromValue);
             newToValue = formatter.parse(toValue);
 
@@ -74,8 +72,10 @@ public class DateFilterController {
         }
 
         List<Message> messages = messageDAOService.getMessagesFromTo(newFromValue.getTime(), newToValue.getTime());
-
         EmailStatisticController.emailStatisticController.setList(messages);
+
+        Stage stage = (Stage) toSlider.getScene().getWindow();
+        stage.close();
     }
 
     public void clear() {
@@ -110,7 +110,7 @@ public class DateFilterController {
     }
 
     private String getString(Date value) {
-        Format formater = new SimpleDateFormat("dd.MMMM.yyyy, hh:mm:ss");
+        Format formater = new SimpleDateFormat("dd.MM.yyyy, hh:mm:ss");
         return formater.format(value);
     }
 

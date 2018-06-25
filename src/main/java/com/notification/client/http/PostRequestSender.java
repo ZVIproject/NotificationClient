@@ -43,7 +43,6 @@ public class PostRequestSender {
 
     // SendMessage
     public void sendMailDto(String url, SendMailDto mail) {
-        // TODO Finish this method. This is not finished version.
         restTemplate.postForObject(url, mail, String.class);
     }
 }

@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'application'
 
@@ -8,6 +7,8 @@ mainClassName = 'com.notification.client.Main'
 repositories {
 	mavenCentral()
 }
+
+version = 1.0
 
 dependencies {
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
@@ -21,4 +22,15 @@ dependencies {
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 
 	compile group: 'org.springframework', name: 'spring-web', version: '5.0.4.RELEASE'
+}
+
+task fatJar(type: Jar) {
+	manifest {
+		attributes 'Implementation-Title': 'Notification Client',
+				'Implementation-Version': version,
+				'Main-Class': 'com.notification.client.Main'
+	}
+	baseName = project.name + '-all'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
 }

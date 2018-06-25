@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -35,7 +36,7 @@ public class EmailStatisticController {
     @FXML private TableColumn<Message, Integer> sendCountColumn;
 
     @FXML public void initialize() {
-//        selectTopActive();
+        selectTopActive();
     }
 
     public EmailStatisticController() {
@@ -47,7 +48,7 @@ public class EmailStatisticController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/EmailStatisticWindow.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/EmailStatisticWindow.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Додати користувачів");
@@ -85,8 +86,8 @@ public class EmailStatisticController {
     }
 
     private void displayRecords() {
-        emailColumn.setCellValueFactory(new PropertyValueFactory<Message, String>("email"));
-        sendCountColumn.setCellValueFactory(new PropertyValueFactory<Message, Integer>("sendCount"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        sendCountColumn.setCellValueFactory(new PropertyValueFactory<>("sendCount"));
         emails.setItems(observableList);
     }
 

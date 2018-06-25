@@ -12,3 +12,6 @@ NotificationClient.ipr
 NotificationClient.iws
 NotificationClient.iml
 out/
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store

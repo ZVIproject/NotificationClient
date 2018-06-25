@@ -90,13 +90,22 @@ public class SendMessageController {
         mail.setText(content);
         mail.setUserId(MainController.getUser().getId());
         mail.setTo(getReceiversEmail());
-        sendMessageDAOService.sendSimpleMessage(mail, "gmail");
-        OperationSucceedController controller = new OperationSucceedController();
-        controller.showDialog();
+
+        new Thread(new Runnable() {
+            public void run(){
+                sendMessageDAOService.sendSimpleMessage(mail, "gmail");
+                OperationSucceedController controller = new OperationSucceedController();
+                controller.showDialog();
+            }
+        }).start();
+
     }
 
     public void readFromFile() {
-        List<List<Cell>> rows = parser.readFile(stage);
+        List<String> arrayList = new ArrayList<>();
+        arrayList.add("Тема");
+        arrayList.add("Контент");
+        List<List<Cell>> rows = parser.readFile(stage, arrayList);
         for (List<Cell> row : rows) {
             SendMailDto mail = SendMailDto.getMail(row);
             this.subjectField.setText(mail.getSubject());
@@ -105,7 +114,11 @@ public class SendMessageController {
     }
 
     public void readFromFileReceivers() {
-        List<List<Cell>> rows = parser.readFile(stage);
+        List<String> arrayList = new ArrayList<>();
+        arrayList.add("ПІБ");
+        arrayList.add("Група");
+        arrayList.add("E-mail");
+        List<List<Cell>> rows = parser.readFile(stage, arrayList);
         for (List<Cell> row : rows) {
             setColumnValues(row);
         }
@@ -145,9 +158,9 @@ public class SendMessageController {
 
     private void setColumnValues(List<Cell> cells) {
         Receiver receiver = new Receiver(
-                cells.get(0).getStringCellValue(),
                 cells.get(1).getStringCellValue(),
-                cells.get(2).getStringCellValue()
+                cells.get(2).getStringCellValue(),
+                cells.get(0).getStringCellValue()
         );
         observableList.add(receiver);
         displayRecords();

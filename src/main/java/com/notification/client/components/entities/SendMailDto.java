@@ -13,13 +13,6 @@ public class SendMailDto {
 
     public SendMailDto() {}
 
-    public SendMailDto(String[] to, String text, String subject, Integer userId) {
-        this.to = to;
-        this.text = text;
-        this.subject = subject;
-        this.userId = userId;
-    }
-
     public String[] getTo() {
         return to;
     }

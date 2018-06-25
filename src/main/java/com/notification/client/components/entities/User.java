@@ -109,8 +109,8 @@ public class User {
 	}
 
 	/**
-	 * Filing and return new object of User. 
-	 * @param resultSet 
+	 * Filing and return new object of User.
+	 * @param resultSet
 	 * @return new User object
 	 * @throws SQLException
 	 */

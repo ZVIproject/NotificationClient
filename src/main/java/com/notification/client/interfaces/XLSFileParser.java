@@ -10,7 +10,11 @@ public interface XLSFileParser {
 
 	/**
 	 * Reads info from the chosen .xls (or .xlsx) file.
-	 * @param stage - the window that called this method
+	 *
+	 * @param stage
+	 * 			- the window that called this method
+	 * @param columns
+	 * 			- array of strings which contains a names of columns
 	 */
-	List<List<Cell>> readFile(Stage stage);
+	List<List<Cell>> readFile(Stage stage, List<String> columns);
 }

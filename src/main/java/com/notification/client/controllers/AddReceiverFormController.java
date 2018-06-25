@@ -21,7 +21,6 @@ public class AddReceiverFormController {
     @FXML private TextField nameField;
     @FXML private TextField groupField;
     @FXML private TextField emailField;
-    @FXML private Button okButton;
     @FXML private Button cancelButton;
 
     public AddReceiverFormController() {

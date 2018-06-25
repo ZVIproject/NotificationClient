@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -26,10 +27,11 @@ public class BlackListController {
 
     private LoggerServiceImpl logger;
     private MessageRemoteService messageDAOService;
-    private Stage stage;
 
     private ObservableList<Message> activeList = FXCollections.observableArrayList();
     private ObservableList<Message> blackList = FXCollections.observableArrayList();
+
+    @FXML private Button cancelButton;
 
     @FXML private TableView<Message> activeEmailsTable;
     @FXML private TableView<Message> blackListEmailsTable;
@@ -58,7 +60,6 @@ public class BlackListController {
             stage.setScene(scene);
             stage.setTitle("Головне вікно");
             stage.show();
-            this.stage = stage;
 
         } catch(IOException | NullPointerException e) {
             logger.logError(e, "Exception during form loading");
@@ -184,6 +185,7 @@ public class BlackListController {
     }
 
     private void closeCurrentWindow() {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 }

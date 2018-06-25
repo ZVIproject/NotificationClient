@@ -1,6 +1,7 @@
 package com.notification.client.controllers;
 
 import com.notification.client.components.entities.User;
+import com.notification.client.controllers.alerts.NotEnoughDataAlert;
 import com.notification.client.services.LoggerServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +22,6 @@ public class AddUserFormController {
     @FXML private TextField nameField;
     @FXML private TextField lastNameField;
     @FXML private TextField positionField;
-    @FXML private Button okButton;
     @FXML private Button cancelButton;
 
     public AddUserFormController() {
@@ -32,7 +32,7 @@ public class AddUserFormController {
         Stage stage = new Stage();
         BorderPane pane;
         try {
-            pane = (BorderPane) FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/AddUserForm.fxml"));
+            pane = FXMLLoader.load(getClass().getClassLoader().getResource("fxmls/AddUserForm.fxml"));
             Scene scene = new Scene(pane);
             stage.setScene(scene);
             stage.setTitle("Головне вікно");
@@ -52,6 +52,8 @@ public class AddUserFormController {
 
         if (username.equals("") || password.equals("") || firstName.equals("")
                 || lastName.equals("") || position.equals("")) {
+            NotEnoughDataAlert alert = new NotEnoughDataAlert();
+            alert.showDialog();
             return;
         }
 

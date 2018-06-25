@@ -21,6 +21,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 public class MainController {
 	
 	private static final LoggerServiceImpl logger = new LoggerServiceImpl();
+	private static final Format formater = new SimpleDateFormat("dd.MM.yyyy, hh:mm:ss");
 
 	private static User user;
 
@@ -51,9 +54,8 @@ public class MainController {
 	    setRecords();
 	    displayRecords();
 
-        lastDayInField.setText(lastDayInField.getText() + " " + user.getModified());
-        usernameField.setText(usernameField.getText() + " " + user.getUsername());
-
+	    usernameField.setText(usernameField.getText() + " " + user.getUsername());
+        lastDayInField.setText(lastDayInField.getText() + " " + formater.format(user.getModified()));
         statusButton.setStyle("-fx-background-color: #258030");
     }
 
@@ -131,7 +133,7 @@ public class MainController {
                     message.getStatus().equals(MailStatus.NEW) ? "Новий" :
                             message.getStatus().equals(MailStatus.FAIL) ? "Помилка при надсилані" : "Надіслано",
                     message.getSendCount(),
-                    message.getModified().toString(),
+                    formater.format(message.getModified()),
 					message.getEmail()
             );
             mainStatistics.add(statistic);
@@ -140,11 +142,11 @@ public class MainController {
     }
 
     private void displayRecords() {
-        userColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("name"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("status"));
-        sendCountColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, Integer>("sendCount"));
-        sentTimeColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("created"));
-		emailColumn.setCellValueFactory(new PropertyValueFactory<MainStatistic, String>("email"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        sendCountColumn.setCellValueFactory(new PropertyValueFactory<>("sendCount"));
+        sentTimeColumn.setCellValueFactory(new PropertyValueFactory<>("created"));
+		emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         statisticTable.setItems(mainStatistics);
     }
 
@@ -158,10 +160,5 @@ public class MainController {
                 .sorted(Comparator.comparing(Message::getModified).reversed())
                 .limit(20)
                 .collect(Collectors.toList());
-    }
-
-    private void closeCurrentWindow() {
-        Stage stage = (Stage) statusButton.getScene().getWindow();
-        stage.close();
     }
 }
